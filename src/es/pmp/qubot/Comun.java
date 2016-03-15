@@ -23,7 +23,8 @@ public class Comun {
     public static final int CAPTURA_PANTALLA_MAX_ALTO = 400;
 
     
-    public static final String RUTA_FICHERO_CAPTURAS = "imagenes/qubot_image.png";
+    public static final String RUTA_CAPTURAS        = "imagenes/";
+    public static final String RUTA_FICHERO_CAPTURAS = RUTA_CAPTURAS + "qubot_image.png";
     
     
     

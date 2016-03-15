@@ -5,6 +5,7 @@
 package es.pmp.qubot;
 
 import es.pmp.qubot.imagenes.Imagen;
+import es.pmp.qubot.imagenes.Pantallas;
 import es.pmp.qubot.tipos.CProceso;
 import java.awt.AWTException;
 import java.awt.Rectangle;
@@ -58,6 +59,11 @@ public class QubotView extends FrameView {
         btnTestDetectarVysor1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         lblCapturaVysor = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        tfNombreFichero = new javax.swing.JTextField();
+        btnIdentificar = new javax.swing.JButton();
+        tfNombreFichero1 = new javax.swing.JTextField();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu menuArchivo = new javax.swing.JMenu();
         miListaProcesos = new javax.swing.JMenuItem();
@@ -185,18 +191,72 @@ public class QubotView extends FrameView {
         lblCapturaVysor.setName("lblCapturaVysor"); // NOI18N
         jScrollPane3.setViewportView(lblCapturaVysor);
 
+        jPanel2.setName("jPanel2"); // NOI18N
+
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        tfNombreFichero.setText(resourceMap.getString("tfNombreFichero.text")); // NOI18N
+        tfNombreFichero.setToolTipText(resourceMap.getString("tfNombreFichero.toolTipText")); // NOI18N
+        tfNombreFichero.setName("tfNombreFichero"); // NOI18N
+
+        btnIdentificar.setMnemonic('T');
+        btnIdentificar.setText(resourceMap.getString("btnIdentificar.text")); // NOI18N
+        btnIdentificar.setName("btnIdentificar"); // NOI18N
+        btnIdentificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIdentificarActionPerformed(evt);
+            }
+        });
+
+        tfNombreFichero1.setBackground(resourceMap.getColor("tfNombreFichero1.background")); // NOI18N
+        tfNombreFichero1.setText(resourceMap.getString("tfNombreFichero1.text")); // NOI18N
+        tfNombreFichero1.setToolTipText(resourceMap.getString("tfNombreFichero1.toolTipText")); // NOI18N
+        tfNombreFichero1.setName("tfNombreFichero1"); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tfNombreFichero1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfNombreFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnIdentificar)))
+                .addContainerGap(104, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tfNombreFichero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIdentificar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfNombreFichero1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnTestDetectarVysor1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnTestDetectarVysor1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(mainPanelLayout.createSequentialGroup()
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
@@ -206,7 +266,9 @@ public class QubotView extends FrameView {
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(btnTestDetectarVysor1)
                 .addContainerGap())
         );
@@ -319,17 +381,24 @@ public class QubotView extends FrameView {
         guardarPantallaVysor();
     }//GEN-LAST:event_btnGuardarPantallaVysorActionPerformed
 
+    private void btnIdentificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIdentificarActionPerformed
+        testIdentificarFichero();
+    }//GEN-LAST:event_btnIdentificarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapturarVysor;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEnviarVysorAlFrente;
     private javax.swing.JButton btnGuardarPantallaVysor;
+    private javax.swing.JButton btnIdentificar;
     private javax.swing.JButton btnTestDetectarVysor;
     private javax.swing.JButton btnTestDetectarVysor1;
     private javax.swing.JFrame frmListaProcesos;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -339,6 +408,8 @@ public class QubotView extends FrameView {
     private javax.swing.JMenuItem miListaProcesos;
     private javax.swing.JTextArea taListaProcesos;
     private javax.swing.JTextArea taProcesoVysor;
+    private javax.swing.JTextField tfNombreFichero;
+    private javax.swing.JTextField tfNombreFichero1;
     private javax.swing.JTextField tfTituloVentanaVysor;
     // End of variables declaration//GEN-END:variables
 
@@ -504,6 +575,29 @@ public class QubotView extends FrameView {
         
     }
     
+    
+    /**
+     * Trata de identificar el tipo de fichero.
+     */
+    private void testIdentificarFichero() {
+        String nombre_fichero = tfNombreFichero.getText();
+        String ruta_fichero = Comun.RUTA_CAPTURAS + nombre_fichero;
+        BufferedImage imagen = null;
+        
+        try {
+            imagen = Imagen.cargarImagenPng(ruta_fichero);
+            mostrarImagenEnForm(imagen);
+                    
+        } catch (IOException ex) {
+            Logger.getLogger(QubotView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (imagen != null) {
+            int id_pantalla = Pantallas.identificarPantalla(imagen);
+            mostrarImagenEnForm(imagen);
+        }
+        
+    }
     
     
     /**

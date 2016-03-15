@@ -7,6 +7,7 @@
 package es.pmp.qubot.imagenes;
 
 import es.pmp.qubot.Comun;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
@@ -145,10 +146,52 @@ public class Imagen {
      * 
      * @throws java.io.IOException              Error al guardar el fichero
      */
-    public BufferedImage cargarImagenPng(String ruta_fichero) throws IOException {
+    public static BufferedImage cargarImagenPng(String ruta_fichero) throws IOException {
 
         File fichero_entrada = new File(ruta_fichero);
         BufferedImage image = ImageIO.read(fichero_entrada);
         return image;
     }
+    
+    
+    /**
+     * Obtiene una cadena con la representación hexadecimal del color dado por sus componentes.
+     *
+     * @param r                             Componente rojo (0-255)
+     * @param g                             Componente verde (0-255)
+     * @param b                             Componente azul (0-255)
+     *
+     * @return                              Cadena generada (por ejemplo, "0F0A16"
+     */
+    public static String rgb2Hex(int r, int g, int b) {
+        String s = "";
+
+        String sr = Integer.toHexString(r);
+        String sg = Integer.toHexString(g);
+        String sb = Integer.toHexString(b);
+
+        while (sr.length() < 2) sr = "0" + sr;
+        while (sg.length() < 2) sg = "0" + sg;
+        while (sb.length() < 2) sb = "0" + sb;
+
+        s = sr + sg + sb;
+        return s;
+    }
+    
+    /**
+     * Obtiene la representación hexadecimal RGB de un color dado.
+     *
+     * @param color                         Objeto de tipo Color
+     *
+     * @return                              Representación hexadecimal RGB del color, por ejemplo "0F0A16"
+     */
+    public static String color2Hex(Color color) {
+
+        int r = color.getRed();
+        int g = color.getGreen();
+        int b = color.getBlue();
+        String hex = rgb2Hex(r, g, b);
+        return hex;
+    }
+    
 }

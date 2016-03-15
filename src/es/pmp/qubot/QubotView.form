@@ -10,15 +10,18 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btnTestDetectarVysor1" min="-2" pref="92" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" min="-2" pref="223" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="btnTestDetectarVysor1" min="-2" pref="92" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jScrollPane3" min="-2" pref="223" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
+                      <Component id="jPanel2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="71" max="32767" attributes="0"/>
               </Group>
@@ -32,7 +35,9 @@
                       <Component id="jPanel1" max="32767" attributes="0"/>
                       <Component id="jScrollPane3" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="59" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="47" max="32767" attributes="0"/>
                   <Component id="btnTestDetectarVysor1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -204,6 +209,80 @@
                 <Property name="text" type="java.lang.String" resourceKey="lblCapturaVysor.text"/>
                 <Property name="verticalAlignment" type="int" value="1"/>
                 <Property name="name" type="java.lang.String" value="lblCapturaVysor" noResource="true"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="jPanel2">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="jPanel2" noResource="true"/>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="tfNombreFichero1" alignment="1" min="-2" pref="303" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="tfNombreFichero" min="-2" pref="212" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnIdentificar" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="104" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfNombreFichero" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnIdentificar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="tfNombreFichero1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="jLabel1.text"/>
+                <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tfNombreFichero">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="tfNombreFichero.text"/>
+                <Property name="toolTipText" type="java.lang.String" resourceKey="tfNombreFichero.toolTipText"/>
+                <Property name="name" type="java.lang.String" value="tfNombreFichero" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnIdentificar">
+              <Properties>
+                <Property name="mnemonic" type="int" value="84"/>
+                <Property name="text" type="java.lang.String" resourceKey="btnIdentificar.text"/>
+                <Property name="name" type="java.lang.String" value="btnIdentificar" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIdentificarActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tfNombreFichero1">
+              <Properties>
+                <Property name="background" type="java.awt.Color" resourceKey="tfNombreFichero1.background"/>
+                <Property name="text" type="java.lang.String" resourceKey="tfNombreFichero1.text"/>
+                <Property name="toolTipText" type="java.lang.String" resourceKey="tfNombreFichero1.toolTipText"/>
+                <Property name="name" type="java.lang.String" value="tfNombreFichero1" noResource="true"/>
               </Properties>
             </Component>
           </SubComponents>
