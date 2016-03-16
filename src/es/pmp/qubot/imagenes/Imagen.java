@@ -7,10 +7,15 @@
 package es.pmp.qubot.imagenes;
 
 import es.pmp.qubot.Comun;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -35,6 +40,43 @@ public class Imagen {
 //        imagen_escala = scaleOp.filter(imagen_original, imagen_escala);
 //        return imagen_escala;
 //    }
+    
+    
+    
+
+    /**
+     * Comprueba si la imagen dada contiene píxeles transparentes.
+     * 
+     * @param image                         Imagen a comprobar
+     * 
+     * @return                              'true' si la imagen contiene píxeles transparentes
+     *                                      'false' en caso contrario
+     */
+    public static boolean hasAlpha(Image image) {
+        
+        // If buffered image, the color model is readily available
+        if (image instanceof BufferedImage) {
+            BufferedImage bimage = (BufferedImage)image;
+            return bimage.getColorModel().hasAlpha();
+        }
+
+        // Use a pixel grabber to retrieve the image's color model;
+        // grabbing a single pixel is usually sufficient
+         PixelGrabber pg = new PixelGrabber(image, 0, 0, 1, 1, false);
+        try {
+            pg.grabPixels();
+        } catch (InterruptedException e) {
+        }
+
+        // Get the image's color model
+        ColorModel cm = pg.getColorModel();
+        if (cm == null) {
+            return false;
+        }
+        
+        return cm.hasAlpha();
+    }
+
     
     
     /**
@@ -193,5 +235,132 @@ public class Imagen {
         String hex = rgb2Hex(r, g, b);
         return hex;
     }
+    
+    
+    /**
+     * Dibuja un punto grueso sobre una imagen.
+     * El punto ocupa un área de 3x3.
+     * 
+     * @param imagen
+     * @param x
+     * @param y
+     * @param color
+     */
+    public static void dibujarPuntoGrueso(BufferedImage imagen, int x, int y, Color color) {
+        int rgb = color.getRGB();
+        
+        int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+        
+        int x2 = x;
+        int y2 = y;
+        
+        x2 = x - 1;
+        y2 = y - 1;
+        if (x2 >= 0 && y2 >= 0) {
+            imagen.setRGB(x2, y2, rgb);
+        }
+        
+        x2 = x;
+        y2 = y - 1;
+        if (y2 >= 0) {
+            imagen.setRGB(x2, y2, rgb);
+        }
+        
+        x2 = x + 1;
+        y2 = y - 1;
+        if (x2 < ancho && y2 >= 0) {
+            imagen.setRGB(x2, y2, rgb);
+        }
+
+        x2 = x - 1;
+        y2 = y;
+        if (x2 >= 0) {
+            imagen.setRGB(x2, y2, rgb);
+        }
+
+        x2 = x;
+        y2 = y;
+        imagen.setRGB(x2, y2, rgb);
+        
+        x2 = x + 1;
+        y2 = y;
+        if (x2 < ancho) {
+            imagen.setRGB(x2, y2, rgb);
+        }
+        
+        
+        x2 = x - 1;
+        y2 = y + 1;
+        if (x2 >= 0 && y2 < alto) {
+            imagen.setRGB(x2, y2, rgb);
+        }
+        
+        x2 = x;
+        y2 = y + 1;
+        if (y2 < alto) {
+            imagen.setRGB(x2, y2, rgb);
+        }
+        
+        x2 = x + 1;
+        y2 = y + 1;
+        if (x2 < ancho && y2 < alto) {
+            imagen.setRGB(x2, y2, rgb);
+        }
+    }
+    
+    
+    /**
+     * Dibuja un punto grueso sobre una imagen.
+     * El punto ocupa un área de 3x3.
+     * Se suministra con coordenadas relativas.
+     * 
+     * @param imagen
+     * @param punto
+     * @param color
+     */
+    public static void dibujarPuntoGrueso(BufferedImage imagen, CPunto punto, Color color) {
+        
+        int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+
+        int x_abs = Regiones.getCoordAbs(punto.x, ancho);
+        int y_abs = Regiones.getCoordAbs(punto.y, alto);
+        
+        dibujarPuntoGrueso(imagen, x_abs, y_abs, color);
+    }
+    
+    
+    
+    /**
+     * Dibuja el rectángulo sobre la imagen dada.
+     * El rectángulo se suministra con coordenadas relativas.
+     * 
+     * @param imagen                            Imagen
+     * @param rectangulo                        Rectángulo
+     * @param color                             Color
+     */
+    public static void dibujarRectangulo(BufferedImage imagen, CRectangulo rectangulo, Color color) {
+
+        int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+
+        int x0 = Regiones.getCoordAbs(rectangulo.x0, ancho);
+        int y0 = Regiones.getCoordAbs(rectangulo.y0, alto);
+        int x1 = Regiones.getCoordAbs(rectangulo.x1, ancho);
+        int y1 = Regiones.getCoordAbs(rectangulo.y1, alto);
+        double ancho_rect = x1 - x0;
+        double alto_rect = y1 - y0;
+        
+        Rectangle2D r2d = new Rectangle2D.Double(x0, y0, ancho_rect, alto_rect);
+        
+        Graphics2D g2d = imagen.createGraphics();
+        g2d.setColor(color);
+        BasicStroke bs = new BasicStroke(3);
+        g2d.setStroke(bs);
+        
+        g2d.draw(r2d);
+    }
+    
     
 }

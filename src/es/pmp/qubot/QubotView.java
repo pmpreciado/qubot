@@ -5,7 +5,7 @@
 package es.pmp.qubot;
 
 import es.pmp.qubot.imagenes.Imagen;
-import es.pmp.qubot.imagenes.Pantallas;
+import es.pmp.qubot.imagenes.Regiones;
 import es.pmp.qubot.tipos.CProceso;
 import java.awt.AWTException;
 import java.awt.Rectangle;
@@ -33,7 +33,9 @@ public class QubotView extends FrameView {
         jna = new Jna();
         
         this.tfTituloVentanaVysor.setText(Comun.TITULO_VENTANA_VYSOR);
-        this.getFrame().setSize(600, 400);
+        //this.getFrame().setSize(600, 400);
+        
+        this.tfNombreFichero.setText("99_temp_fin.png");
     }
     
     
@@ -63,7 +65,7 @@ public class QubotView extends FrameView {
         jLabel1 = new javax.swing.JLabel();
         tfNombreFichero = new javax.swing.JTextField();
         btnIdentificar = new javax.swing.JButton();
-        tfNombreFichero1 = new javax.swing.JTextField();
+        tfIdentificacion = new javax.swing.JTextField();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu menuArchivo = new javax.swing.JMenu();
         miListaProcesos = new javax.swing.JMenuItem();
@@ -209,10 +211,10 @@ public class QubotView extends FrameView {
             }
         });
 
-        tfNombreFichero1.setBackground(resourceMap.getColor("tfNombreFichero1.background")); // NOI18N
-        tfNombreFichero1.setText(resourceMap.getString("tfNombreFichero1.text")); // NOI18N
-        tfNombreFichero1.setToolTipText(resourceMap.getString("tfNombreFichero1.toolTipText")); // NOI18N
-        tfNombreFichero1.setName("tfNombreFichero1"); // NOI18N
+        tfIdentificacion.setBackground(resourceMap.getColor("tfIdentificacion.background")); // NOI18N
+        tfIdentificacion.setText(resourceMap.getString("tfIdentificacion.text")); // NOI18N
+        tfIdentificacion.setToolTipText(resourceMap.getString("tfIdentificacion.toolTipText")); // NOI18N
+        tfIdentificacion.setName("tfIdentificacion"); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -221,7 +223,7 @@ public class QubotView extends FrameView {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfNombreFichero1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
@@ -239,7 +241,7 @@ public class QubotView extends FrameView {
                     .addComponent(tfNombreFichero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIdentificar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfNombreFichero1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -268,7 +270,7 @@ public class QubotView extends FrameView {
                     .addComponent(jScrollPane3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTestDetectarVysor1)
                 .addContainerGap())
         );
@@ -408,8 +410,8 @@ public class QubotView extends FrameView {
     private javax.swing.JMenuItem miListaProcesos;
     private javax.swing.JTextArea taListaProcesos;
     private javax.swing.JTextArea taProcesoVysor;
+    private javax.swing.JTextField tfIdentificacion;
     private javax.swing.JTextField tfNombreFichero;
-    private javax.swing.JTextField tfNombreFichero1;
     private javax.swing.JTextField tfTituloVentanaVysor;
     // End of variables declaration//GEN-END:variables
 
@@ -531,10 +533,11 @@ public class QubotView extends FrameView {
             return;
         }
         
+        Regiones.mostrarColorPixelesColumna(img, 7);
+        
         BufferedImage img_escala = Imagen.escalarImagenStd(img);
         ImageIcon icon = new ImageIcon(img_escala);
         this.lblCapturaVysor.setIcon(icon);
-        
     }
     
     
@@ -593,7 +596,10 @@ public class QubotView extends FrameView {
         }
         
         if (imagen != null) {
-            int id_pantalla = Pantallas.identificarPantalla(imagen);
+            //int id_pantalla = Pantallas.identificarPantalla(imagen);
+            //Pantallas.trazarRegionesPregunta(imagen);
+            Regiones.trazarRegionesRevancha(imagen);
+            
             mostrarImagenEnForm(imagen);
         }
         
