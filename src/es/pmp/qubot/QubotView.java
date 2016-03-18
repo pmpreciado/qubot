@@ -4,7 +4,8 @@
 
 package es.pmp.qubot;
 
-import es.pmp.qubot.imagenes.Imagen;
+import es.pmp.qubot.imagenes.Imagenes;
+import es.pmp.qubot.imagenes.Pantallas;
 import es.pmp.qubot.imagenes.Regiones;
 import es.pmp.qubot.tipos.CProceso;
 import java.awt.AWTException;
@@ -27,6 +28,11 @@ public class QubotView extends FrameView {
 
     public Jna jna;
     
+    /** Imagen mostrada actualmente en el formulario */
+    BufferedImage imagen_en_pantalla;
+            
+            
+    
     public QubotView(SingleFrameApplication app) {
         super(app);
         initComponents();        
@@ -35,7 +41,9 @@ public class QubotView extends FrameView {
         this.tfTituloVentanaVysor.setText(Comun.TITULO_VENTANA_VYSOR);
         //this.getFrame().setSize(600, 400);
         
-        this.tfNombreFichero.setText("99_temp_fin.png");
+        this.tfNombreFichero.setText("01_texto_01.png");
+        
+        imagen_en_pantalla = null;
     }
     
     
@@ -64,8 +72,10 @@ public class QubotView extends FrameView {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfNombreFichero = new javax.swing.JTextField();
-        btnIdentificar = new javax.swing.JButton();
+        btnCargar = new javax.swing.JButton();
         tfIdentificacion = new javax.swing.JTextField();
+        btnIdentificar = new javax.swing.JButton();
+        btnRegiones = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu menuArchivo = new javax.swing.JMenu();
         miListaProcesos = new javax.swing.JMenuItem();
@@ -202,6 +212,20 @@ public class QubotView extends FrameView {
         tfNombreFichero.setToolTipText(resourceMap.getString("tfNombreFichero.toolTipText")); // NOI18N
         tfNombreFichero.setName("tfNombreFichero"); // NOI18N
 
+        btnCargar.setMnemonic('T');
+        btnCargar.setText(resourceMap.getString("btnCargar.text")); // NOI18N
+        btnCargar.setName("btnCargar"); // NOI18N
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+
+        tfIdentificacion.setBackground(resourceMap.getColor("tfIdentificacion.background")); // NOI18N
+        tfIdentificacion.setText(resourceMap.getString("tfIdentificacion.text")); // NOI18N
+        tfIdentificacion.setToolTipText(resourceMap.getString("tfIdentificacion.toolTipText")); // NOI18N
+        tfIdentificacion.setName("tfIdentificacion"); // NOI18N
+
         btnIdentificar.setMnemonic('T');
         btnIdentificar.setText(resourceMap.getString("btnIdentificar.text")); // NOI18N
         btnIdentificar.setName("btnIdentificar"); // NOI18N
@@ -211,10 +235,14 @@ public class QubotView extends FrameView {
             }
         });
 
-        tfIdentificacion.setBackground(resourceMap.getColor("tfIdentificacion.background")); // NOI18N
-        tfIdentificacion.setText(resourceMap.getString("tfIdentificacion.text")); // NOI18N
-        tfIdentificacion.setToolTipText(resourceMap.getString("tfIdentificacion.toolTipText")); // NOI18N
-        tfIdentificacion.setName("tfIdentificacion"); // NOI18N
+        btnRegiones.setMnemonic('T');
+        btnRegiones.setText(resourceMap.getString("btnRegiones.text")); // NOI18N
+        btnRegiones.setName("btnRegiones"); // NOI18N
+        btnRegiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegionesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -222,15 +250,20 @@ public class QubotView extends FrameView {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(tfNombreFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnIdentificar)))
-                .addContainerGap(104, Short.MAX_VALUE))
+                        .addComponent(btnCargar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRegiones))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnIdentificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,10 +272,13 @@ public class QubotView extends FrameView {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfNombreFichero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnIdentificar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCargar)
+                    .addComponent(btnRegiones))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnIdentificar)
+                    .addComponent(tfIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -259,7 +295,7 @@ public class QubotView extends FrameView {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,16 +419,26 @@ public class QubotView extends FrameView {
         guardarPantallaVysor();
     }//GEN-LAST:event_btnGuardarPantallaVysorActionPerformed
 
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        cargarFicheroImagen();
+    }//GEN-LAST:event_btnCargarActionPerformed
+
     private void btnIdentificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIdentificarActionPerformed
-        testIdentificarFichero();
+        identificarPantalla();
     }//GEN-LAST:event_btnIdentificarActionPerformed
+
+    private void btnRegionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegionesActionPerformed
+        trazarRegiones();
+    }//GEN-LAST:event_btnRegionesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapturarVysor;
+    private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEnviarVysorAlFrente;
     private javax.swing.JButton btnGuardarPantallaVysor;
     private javax.swing.JButton btnIdentificar;
+    private javax.swing.JButton btnRegiones;
     private javax.swing.JButton btnTestDetectarVysor;
     private javax.swing.JButton btnTestDetectarVysor1;
     private javax.swing.JFrame frmListaProcesos;
@@ -535,7 +581,7 @@ public class QubotView extends FrameView {
         
         Regiones.mostrarColorPixelesColumna(img, 7);
         
-        BufferedImage img_escala = Imagen.escalarImagenStd(img);
+        BufferedImage img_escala = Imagenes.escalarImagenStd(img);
         ImageIcon icon = new ImageIcon(img_escala);
         this.lblCapturaVysor.setIcon(icon);
     }
@@ -557,7 +603,7 @@ public class QubotView extends FrameView {
             ruta_fichero = Comun.getNombreFicheroInexistente(ruta_fichero);
             
             try {
-                ruta_fichero_generado = Imagen.guardarImagenPng(img, ruta_fichero);
+                ruta_fichero_generado = Imagenes.guardarImagenPng(img, ruta_fichero);
                 
             } catch (IOException ex) {
                 Logger.getLogger(QubotView.class.getName()).log(Level.SEVERE, null, ex);
@@ -580,29 +626,47 @@ public class QubotView extends FrameView {
     
     
     /**
-     * Trata de identificar el tipo de fichero.
+     * Carga la imagen en pantalla.
      */
-    private void testIdentificarFichero() {
+    private void cargarFicheroImagen() {
         String nombre_fichero = tfNombreFichero.getText();
         String ruta_fichero = Comun.RUTA_CAPTURAS + nombre_fichero;
         BufferedImage imagen = null;
         
         try {
-            imagen = Imagen.cargarImagenPng(ruta_fichero);
-            mostrarImagenEnForm(imagen);
+            imagen_en_pantalla = Imagenes.cargarImagenPng(ruta_fichero);
+            if (imagen_en_pantalla != null) {
+                mostrarImagenEnForm(imagen_en_pantalla);
+            }
                     
         } catch (IOException ex) {
             Logger.getLogger(QubotView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if (imagen != null) {
-            //int id_pantalla = Pantallas.identificarPantalla(imagen);
-            //Pantallas.trazarRegionesPregunta(imagen);
-            Regiones.trazarRegionesRevancha(imagen);
-            
-            mostrarImagenEnForm(imagen);
+    }
+    
+    
+    /**
+     * Muestra las regiones predefinidas sobre el fichero especificado.
+     */
+    private void trazarRegiones() {
+        if (imagen_en_pantalla != null) {
+            BufferedImage imagen_regiones = Imagenes.duplicarImagen(imagen_en_pantalla);
+            Regiones.trazarRegionesPregunta(imagen_regiones);
+            Regiones.trazarRegionesRevancha(imagen_regiones);
+            mostrarImagenEnForm(imagen_regiones);
         }
-        
+    }
+    
+    
+    /**
+     * Trata de identificar la imagen cargada.
+     */
+    private void identificarPantalla() {
+        if (imagen_en_pantalla != null) {
+            int tipo_pantalla = Pantallas.identificarPantalla(imagen_en_pantalla);
+            String desc_tipo_pantalla = Pantallas.getDescripcionPantalla(tipo_pantalla);
+            this.tfIdentificacion.setText(desc_tipo_pantalla);
+        }
     }
     
     

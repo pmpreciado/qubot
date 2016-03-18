@@ -16,15 +16,17 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.PixelGrabber;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import javax.imageio.ImageIO;
 
 /**
  *
  * @author pmpreciado
  */
-public class Imagen {
+public class Imagenes {
 
     
 //    public static BufferedImage escalarImagen(BufferedImage imagen_original, float escala_horizontal, float escala_vertical) {
@@ -154,7 +156,7 @@ public class Imagen {
      */
     public static BufferedImage escalarImagenStd(BufferedImage imagen_original) {
         
-        BufferedImage img_escala = Imagen.escalarImagenMax(imagen_original, Comun.CAPTURA_PANTALLA_MAX_ANCHO, Comun.CAPTURA_PANTALLA_MAX_ALTO);
+        BufferedImage img_escala = Imagenes.escalarImagenMax(imagen_original, Comun.CAPTURA_PANTALLA_MAX_ANCHO, Comun.CAPTURA_PANTALLA_MAX_ALTO);
         return img_escala;
     }
     
@@ -195,46 +197,6 @@ public class Imagen {
         return image;
     }
     
-    
-    /**
-     * Obtiene una cadena con la representación hexadecimal del color dado por sus componentes.
-     *
-     * @param r                             Componente rojo (0-255)
-     * @param g                             Componente verde (0-255)
-     * @param b                             Componente azul (0-255)
-     *
-     * @return                              Cadena generada (por ejemplo, "0F0A16"
-     */
-    public static String rgb2Hex(int r, int g, int b) {
-        String s = "";
-
-        String sr = Integer.toHexString(r);
-        String sg = Integer.toHexString(g);
-        String sb = Integer.toHexString(b);
-
-        while (sr.length() < 2) sr = "0" + sr;
-        while (sg.length() < 2) sg = "0" + sg;
-        while (sb.length() < 2) sb = "0" + sb;
-
-        s = sr + sg + sb;
-        return s;
-    }
-    
-    /**
-     * Obtiene la representación hexadecimal RGB de un color dado.
-     *
-     * @param color                         Objeto de tipo Color
-     *
-     * @return                              Representación hexadecimal RGB del color, por ejemplo "0F0A16"
-     */
-    public static String color2Hex(Color color) {
-
-        int r = color.getRed();
-        int g = color.getGreen();
-        int b = color.getBlue();
-        String hex = rgb2Hex(r, g, b);
-        return hex;
-    }
     
     
     /**
@@ -324,8 +286,8 @@ public class Imagen {
         int ancho = imagen.getWidth();
         int alto = imagen.getHeight();
 
-        int x_abs = Regiones.getCoordAbs(punto.x, ancho);
-        int y_abs = Regiones.getCoordAbs(punto.y, alto);
+        int x_abs = CPunto.getCoordAbs(punto.x, ancho);
+        int y_abs = CPunto.getCoordAbs(punto.y, alto);
         
         dibujarPuntoGrueso(imagen, x_abs, y_abs, color);
     }
@@ -345,10 +307,10 @@ public class Imagen {
         int ancho = imagen.getWidth();
         int alto = imagen.getHeight();
 
-        int x0 = Regiones.getCoordAbs(rectangulo.x0, ancho);
-        int y0 = Regiones.getCoordAbs(rectangulo.y0, alto);
-        int x1 = Regiones.getCoordAbs(rectangulo.x1, ancho);
-        int y1 = Regiones.getCoordAbs(rectangulo.y1, alto);
+        int x0 = CPunto.getCoordAbs(rectangulo.x0, ancho);
+        int y0 = CPunto.getCoordAbs(rectangulo.y0, alto);
+        int x1 = CPunto.getCoordAbs(rectangulo.x1, ancho);
+        int y1 = CPunto.getCoordAbs(rectangulo.y1, alto);
         double ancho_rect = x1 - x0;
         double alto_rect = y1 - y0;
         
@@ -361,6 +323,24 @@ public class Imagen {
         
         g2d.draw(r2d);
     }
+    
+
+    /**
+     * Duplica una imagen dada.
+     * 
+     * @param imagen_original                   Imagen a duplicar
+     * 
+     * @return                                  Imagen duplicada
+     */
+    public static BufferedImage duplicarImagen(BufferedImage imagen_original) {
+        ColorModel cm = imagen_original.getColorModel();
+        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+        WritableRaster raster = imagen_original.copyData(null);
+        BufferedImage imagen_duplicada = new BufferedImage(cm, raster, isAlphaPremultiplied, null);
+        return imagen_duplicada;
+    }
+    
+
     
     
 }

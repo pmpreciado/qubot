@@ -6,9 +6,6 @@
 
 package es.pmp.qubot.imagenes;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-
 /**
  * Define un rectángulo.
  * 

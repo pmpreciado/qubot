@@ -6,6 +6,7 @@
 
 package es.pmp.qubot.imagenes;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 /**
@@ -16,30 +17,165 @@ import java.awt.image.BufferedImage;
 public class Pantallas {
 
     /** Tipos de pantallas */
-    public static final int ID_PANTALLA_DESCONOCIDA                             = 0;
-    public static final int ID_PANTALLA_PREGUNTA_NORMAL_SIN_CONTESTAR           = 1;
-    public static final int ID_PANTALLA_PREGUNTA_LARGA_SIN_CONTESTAR            = 2;
-    public static final int ID_PANTALLA_PREGUNTA_NORMAL_CONTESTADA              = 3;
-    public static final int ID_PANTALLA_PREGUNTA_LARGA_CONTESTADA               = 4;
-    public static final int ID_PANTALLA_REVANCHA                                = 5;
-    
+    public static final int TIPO_PANT_DESCONOCIDA                             = 0;
+    public static final int TIPO_PANT_PREGUNTA_NORMAL_SIN_RESPONDER           = 1;
+    public static final int TIPO_PANT_PREGUNTA_NORMAL_RESPONDIDA              = 2;
+    public static final int TIPO_PANT_PREGUNTA_LARGA_SIN_RESPONDER            = 3;
+    public static final int TIPO_PANT_PREGUNTA_LARGA_RESPONDIDA               = 4;
+    public static final int TIPO_PANT_REVANCHA                                = 5;
     
 
+    /**
+     * Obtiene la descripción del tipo de pantalla.
+     * 
+     * @param tipo                              Tipo (Pantallas.TIPO_PANT_xxx)
+     * 
+     * @return                                  Descripción
+     */
+    public static final String getDescripcionPantalla(int tipo) {
+        switch (tipo) {
+            case TIPO_PANT_DESCONOCIDA:                     return "Desconocida";
+            case TIPO_PANT_PREGUNTA_NORMAL_SIN_RESPONDER:   return "Pregunta normal sin responder";
+            case TIPO_PANT_PREGUNTA_NORMAL_RESPONDIDA:      return "Pregunta normal respondida";
+            case TIPO_PANT_PREGUNTA_LARGA_SIN_RESPONDER:    return "Pregunta larga sin responder";
+            case TIPO_PANT_PREGUNTA_LARGA_RESPONDIDA:       return "Pregunta larga respondida";
+            case TIPO_PANT_REVANCHA:                        return "Revancha";
+        }
+        
+        return "Desconocida";
+    }
+    
     
     /**
+     * Comprueba si la pantalla es la de pregunta de tipo normal, ya sea sin responder o respondida.
      * 
-     * 
-     * Comprueba si la pantalla es la de preguntas de tipo texto aún sin contestar.
-     * 
-     * @param imagen
+     * @param imagen                            Imagen de la pantalla
      * 
      * @return                                  'true' si lo es
      *                                          'false' si no lo es
      */
-    private static int esPantallaPregutasTextoSinContestar(BufferedImage imagen) {
-        return 0;
+    private static boolean esPantallaPreguntaNormal(BufferedImage imagen) {
+
+        int [] arr_tipos_regiones_normal = Regiones.getTiposRegionesRepuestaNormal(imagen);
+        CRegionesRespuestas regiones_respuestas_normal = new CRegionesRespuestas(arr_tipos_regiones_normal);
+        if (regiones_respuestas_normal.esPregunta()) {
+            return true;
+        }
+        
+        return false;
     }
     
+    
+    /**
+     * Comprueba si la pantalla es la de pregunta de tipo normal sin responder.
+     * 
+     * @param imagen                            Imagen de la pantalla
+     * 
+     * @return                                  'true' si lo es
+     *                                          'false' si no lo es
+     */
+    private static boolean esPantallaPreguntaNormalSinResponder(BufferedImage imagen) {
+
+        int [] arr_tipos_regiones_normal = Regiones.getTiposRegionesRepuestaNormal(imagen);
+        CRegionesRespuestas regiones_respuestas_normal = new CRegionesRespuestas(arr_tipos_regiones_normal);
+        if (regiones_respuestas_normal.esPreguntaSinResponder()) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
+    /**
+     * Comprueba si la pantalla es la de pregunta de tipo normal respondida.
+     * 
+     * @param imagen                            Imagen de la pantalla
+     * 
+     * @return                                  'true' si lo es
+     *                                          'false' si no lo es
+     */
+    private static boolean esPantallaPreguntaNormalRespondida(BufferedImage imagen) {
+
+        int [] arr_tipos_regiones_normal = Regiones.getTiposRegionesRepuestaNormal(imagen);
+        CRegionesRespuestas regiones_respuestas_normal = new CRegionesRespuestas(arr_tipos_regiones_normal);
+        if (regiones_respuestas_normal.esPreguntaRespondida()) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
+    /**
+     * Comprueba si la pantalla es la de pregunta de tipo largo, ya sea sin responder o respondida.
+     * 
+     * @param imagen                            Imagen de la pantalla
+     * 
+     * @return                                  'true' si lo es
+     *                                          'false' si no lo es
+     */
+    private static boolean esPantallaPreguntaLarga(BufferedImage imagen) {
+        Puntos puntos = new Puntos();
+        boolean valido_pregunta_larga = puntos.pc_pregunta_larga_huecos.validar(imagen);
+        
+        if (valido_pregunta_larga) {
+            int [] arr_tipos_regiones_larga = Regiones.getTiposRegionesRepuestaLarga(imagen);
+            CRegionesRespuestas regiones_respuestas_larga = new CRegionesRespuestas(arr_tipos_regiones_larga);
+            if (regiones_respuestas_larga.esPregunta()) {
+                return true;
+            }
+        }        
+        return false;
+    }
+
+
+    /**
+     * Comprueba si la pantalla es la de pregunta de tipo largo sin responder.
+     * 
+     * @param imagen                            Imagen de la pantalla
+     * 
+     * @return                                  'true' si lo es
+     *                                          'false' si no lo es
+     */
+    private static boolean esPantallaPreguntaLargaSinResponder(BufferedImage imagen) {
+        Puntos puntos = new Puntos();
+        boolean valido_pregunta_larga = puntos.pc_pregunta_larga_huecos.validar(imagen);
+        
+        if (valido_pregunta_larga) {
+
+            int [] arr_tipos_regiones_larga = Regiones.getTiposRegionesRepuestaLarga(imagen);
+            CRegionesRespuestas regiones_respuestas_larga = new CRegionesRespuestas(arr_tipos_regiones_larga);
+            if (regiones_respuestas_larga.esPreguntaSinResponder()) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+
+    /**
+     * Comprueba si la pantalla es la de pregunta de tipo largo respondido.
+     * 
+     * @param imagen                            Imagen de la pantalla
+     * 
+     * @return                                  'true' si lo es
+     *                                          'false' si no lo es
+     */
+    private static boolean esPantallaPreguntaLargaRespondida(BufferedImage imagen) {
+        Puntos puntos = new Puntos();
+        boolean valido_pregunta_larga = puntos.pc_pregunta_larga_huecos.validar(imagen);
+        
+        if (valido_pregunta_larga) {
+            int [] arr_tipos_regiones_larga = Regiones.getTiposRegionesRepuestaLarga(imagen);
+            CRegionesRespuestas regiones_respuestas_larga = new CRegionesRespuestas(arr_tipos_regiones_larga);
+            if (regiones_respuestas_larga.esPreguntaRespondida()) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
     
     
     
@@ -48,14 +184,30 @@ public class Pantallas {
      * 
      * @param imagen                            Imagen con la pantalla
      * 
-     * @return                                  Tipo de pantalla (Pantallas.ID_PANTALLA_xxx)
+     * @return                                  Tipo de pantalla (Pantallas.TIPO_PANT_xxx)
      */
     public static int identificarPantalla(BufferedImage imagen) {
         
-        int ancho = imagen.getWidth();
-        int alto = imagen.getHeight();
-              return 0;
-    }
-    
-    
+        boolean es_preg_normal_sr = esPantallaPreguntaNormalSinResponder(imagen);
+        if (es_preg_normal_sr) {
+            return TIPO_PANT_PREGUNTA_NORMAL_SIN_RESPONDER;
+        }
+        
+        boolean es_preg_normal_r = esPantallaPreguntaNormalRespondida(imagen);
+        if (es_preg_normal_r) {
+            return TIPO_PANT_PREGUNTA_NORMAL_RESPONDIDA;
+        }
+
+        boolean es_preg_larga_sr = esPantallaPreguntaLargaSinResponder(imagen);
+        if (es_preg_larga_sr) {
+            return TIPO_PANT_PREGUNTA_LARGA_SIN_RESPONDER;
+        }
+
+        boolean es_preg_larga_r = esPantallaPreguntaLargaRespondida(imagen);
+        if (es_preg_larga_r) {
+            return TIPO_PANT_PREGUNTA_LARGA_RESPONDIDA;
+        }
+        
+        return TIPO_PANT_DESCONOCIDA;
+    }   
 }

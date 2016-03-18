@@ -16,23 +16,11 @@ import java.awt.image.BufferedImage;
  */
 public class Regiones {
 
+    
 
+    
+    
 
-    /** Colores */
-    public static final String COLOR_RGB_NEGRO_FONDO                = "010001";
-    public static final String COLOR_RGB_BLANCO_FONDO_PREGUNTA      = "ffffff";
-    public static final String COLOR_RGB_VERDE_ACIERTO              = "037c46";
-    public static final String COLOR_RGB_ROJO_FALLO                 = "9a3234";
-    
-    public static final String COLOR_RGB_VERDE_REVANCHA             = COLOR_RGB_VERDE_ACIERTO;
-    public static final String COLOR_RGB_ROJO_OTRO_ADVERSARIO       = "ff5557";
-    public static final String COLOR_RGB_CIAN_VER_RESULTADOS        = "02b5db";
-    
-    
-    public static final String COLOR_RGB_AZUL_MARCO_VYSOR           = "468FCC";
-
-  
-    
     /** Coordenadas de las regiones y los puntos (en %) */
   
         public static final double SEP_PREGUNTA_VERTICAL = 12.5;
@@ -90,7 +78,6 @@ public class Regiones {
                 RECT_RESP_NORMAL_1,
                 RECT_RESP_NORMAL_2,
                 RECT_RESP_NORMAL_3,
-            
                 RECT_RESP_NORMAL_4
             };
     
@@ -162,42 +149,6 @@ public class Regiones {
                 );
                 
                 
-                
-        /** Puntos destacados */
-            
-            /** Puntos pertenecientes a huecos entre las respuestas a izquierda y derecha en preguntas largas */
-            public static final CPunto PT_HUECO_ENTRE_PREGUNTAS_LARGAS_1 = new CPunto(50, 70);
-            public static final CPunto PT_HUECO_ENTRE_PREGUNTAS_LARGAS_2 = new CPunto(50, 76);
-            public static final CPunto PT_HUECO_ENTRE_PREGUNTAS_LARGAS_3 = new CPunto(50, 82);
-            public static final CPunto PT_HUECO_ENTRE_PREGUNTAS_LARGAS_4 = new CPunto(50, 88);
-
-            public static final CPunto ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS [] = {
-                PT_HUECO_ENTRE_PREGUNTAS_LARGAS_1,
-                PT_HUECO_ENTRE_PREGUNTAS_LARGAS_2,
-                PT_HUECO_ENTRE_PREGUNTAS_LARGAS_3,
-                PT_HUECO_ENTRE_PREGUNTAS_LARGAS_4
-            };
-                
-        
-            
-            
-            
-            
-    /**
-     * Obtiene la coordenada absoluta a partir de la coordenada relativa (en %) y la dimensión de la imagen (ancho o alto).
-     * 
-     * @param coordenada_relativa               Coordenada relativa X o Y (en %)
-     * @param dimension_imagen                  Ancho o alto de la imagen
-     * 
-     * @return                                  Coordenada absoluta
-     */
-    public static int getCoordAbs(double coordenada_relativa, int dimension_imagen) {
-        double f_coordenada_absoluta = coordenada_relativa * (double) dimension_imagen / (double) 100;
-        int coordenada_absoluta = (int) f_coordenada_absoluta;
-        return coordenada_absoluta;
-    }
-    
-   
     
     /**
      * Muestra en la salida estándar el color de un pixel dado por sus coordenadas relativas (%).
@@ -210,12 +161,12 @@ public class Regiones {
         int ancho = imagen.getWidth();
         int alto = imagen.getHeight();
         
-        int abs_x = getCoordAbs(rel_x, ancho);
-        int abs_y = getCoordAbs(rel_y, alto);
+        int abs_x = CPunto.getCoordAbs(rel_x, ancho);
+        int abs_y = CPunto.getCoordAbs(rel_y, alto);
 
         int rgb = imagen.getRGB(abs_x, abs_y);
         Color color = new Color(rgb);
-        String hex_color = Imagen.color2Hex(color);
+        String hex_color = Colores.color2Hex(color);
 
         String s = "abs_x: " + abs_x + ", abs_y: " + abs_y + ", rel_x: " + rel_x + ", rel_y: " + rel_y +", rgb: " + hex_color;
         System.out.println(s);
@@ -231,7 +182,7 @@ public class Regiones {
      */
     public static void mostrarColorPixelesFila(BufferedImage imagen, double fila) {
         int ancho = imagen.getWidth();
-        double fila_abs = getCoordAbs(fila, ancho);
+        double fila_abs = CPunto.getCoordAbs(fila, ancho);
         System.out.println("Fila rel: " + fila + ", Fila abs: " + fila_abs);
         
         for (int rel_x = 0; rel_x < 100; rel_x++) {
@@ -248,7 +199,7 @@ public class Regiones {
      */
     public static void mostrarColorPixelesColumna(BufferedImage imagen, double col) {
         int alto = imagen.getHeight();
-        double col_abs = getCoordAbs(col, alto);
+        double col_abs = CPunto.getCoordAbs(col, alto);
         System.out.println("Col rel: " + col + ", Col abs: " + col_abs);
         
         for (int rel_y = 0; rel_y < 100; rel_y++) {
@@ -267,25 +218,25 @@ public class Regiones {
     public static void trazarRegionesPregunta(BufferedImage imagen) {
 
         // Enunciados
-        Imagen.dibujarRectangulo(imagen, RECT_ENUNCIADO_NORMAL, Color.YELLOW);
-        Imagen.dibujarRectangulo(imagen, RECT_ENUNCIADO_LARGA, Color.YELLOW);
+        Imagenes.dibujarRectangulo(imagen, RECT_ENUNCIADO_NORMAL, Color.YELLOW);
+        Imagenes.dibujarRectangulo(imagen, RECT_ENUNCIADO_LARGA, Color.YELLOW);
         
         // Recuadros preguntas normales
         for (int i = 0; i < ARR_RECT_RESP_NORMAL.length; i++) {
             CRectangulo rectangulo = ARR_RECT_RESP_NORMAL[i];
-            Imagen.dibujarRectangulo(imagen, rectangulo, Color.RED);
+            Imagenes.dibujarRectangulo(imagen, rectangulo, Color.RED);
         }
         
         // Recuadros preguntas largas
         for (int i = 0; i < ARR_RECT_RESP_LARGA.length; i++) {
             CRectangulo rectangulo = ARR_RECT_RESP_LARGA[i];
-            Imagen.dibujarRectangulo(imagen, rectangulo, Color.GREEN);
+            Imagenes.dibujarRectangulo(imagen, rectangulo, Color.GREEN);
         }
         
         // Huecos entre preguntas largas
-        for (int i = 0; i < ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS.length; i++) {
-            CPunto punto = ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS[i];
-            Imagen.dibujarPuntoGrueso(imagen, punto, Color.RED);
+        for (int i = 0; i < Puntos.ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS.length; i++) {
+            CPunto punto = Puntos.ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS[i];
+            Imagenes.dibujarPuntoGrueso(imagen, punto, Color.RED);
         }
     }
     
@@ -299,10 +250,129 @@ public class Regiones {
     public static void trazarRegionesRevancha(BufferedImage imagen) {
 
         // Enunciados
-        Imagen.dibujarRectangulo(imagen, RECT_REVANCHA, Color.CYAN);
-        Imagen.dibujarRectangulo(imagen, RECT_OTRO_ADVERSARIO, Color.RED);        
-        Imagen.dibujarRectangulo(imagen, RECT_VER_RESULTADOS, Color.YELLOW);        
+        Imagenes.dibujarRectangulo(imagen, RECT_REVANCHA, Color.CYAN);
+        Imagenes.dibujarRectangulo(imagen, RECT_OTRO_ADVERSARIO, Color.RED);        
+        Imagenes.dibujarRectangulo(imagen, RECT_VER_RESULTADOS, Color.YELLOW);        
     }
+    
+
+    
+
+    /**
+     * Busca en la imagen la región de la respuesta dada, y retorna el tipo de respuesta que hay.
+     * Espera respuestas para preguntas normales (no largas).
+     * 
+     * @param imagen                            Imagen con la pantalla
+     * @param arr_puntos                        Puntos de las cuatro esquinas de la respuesta
+     * 
+     * @return                                  Tipo de la región de respuesta encontrada (TREG_RESP_xxx)
+     */
+    private static int getTipoRegionRespuesta(BufferedImage imagen, CPunto [] arr_puntos) {
+        
+        Color color_general = null;
+        
+        for (CPunto punto : arr_puntos) {
+            Color color_punto = Puntos.getColorPunto(imagen, punto);
+            
+            if (color_general == null) {
+                color_general = color_punto;
+            }
+            
+            if (!Colores.similares(color_punto, color_general)) {
+                return CRegionesRespuestas.TREG_RESP_NINGUNA;
+            }
+        }
+
+        if (Colores.similares(color_general, Colores.COLOR_BLANCO_FONDO_PREGUNTA)) {
+            return CRegionesRespuestas.TREG_RESP_BLANCO;
+        }
+
+        if (Colores.similares(color_general, Colores.COLOR_VERDE_ACIERTO)) {
+            return CRegionesRespuestas.TREG_RESP_ACIERTO;
+        }
+        
+        if (Colores.similares(color_general, Colores.COLOR_ROJO_FALLO)) {
+            return CRegionesRespuestas.TREG_RESP_FALLO;
+        }
+
+        return CRegionesRespuestas.TREG_RESP_NINGUNA;
+    }
+    
+    
+    
+    /**
+     * Busca en la imagen la región de la respuesta dada, y retorna el tipo de respuesta que hay.
+     * Espera respuestas para preguntas normales (no largas).
+     * 
+     * @param imagen                            Imagen con la pantalla
+     * @param indice                            Índice de la respuesta (0 a 3)
+     * 
+     * @return                                  Tipo de la región de respuesta encontrada (TREG_RESP_xxx)
+     */
+    public static int getTipoRegionRespuestaNormal(BufferedImage imagen, int indice) {
+        
+        CRectangulo rect = ARR_RECT_RESP_NORMAL[indice];
+        CPunto [] arr_puntos = rect.getEsquinas();
+        int tipo_respuesta = getTipoRegionRespuesta(imagen, arr_puntos);
+        return tipo_respuesta;
+    }
+    
+    
+    /**
+     * Busca en la imagen la región de la respuesta dada, y retorna el tipo de respuesta que hay.
+     * Espera respuestas para preguntas largas.
+     * 
+     * @param imagen                            Imagen con la pantalla
+     * @param indice                            Índice de la respuesta (0 a 3)
+     * 
+     * @return                                  Tipo de la región de respuesta encontrada (TREG_RESP_xxx)
+     */
+    public static int getTipoRegionRespuestaLarga(BufferedImage imagen, int indice) {
+        
+        CRectangulo rect = ARR_RECT_RESP_LARGA[indice];
+        CPunto [] arr_puntos = rect.getEsquinas();
+        int tipo_respuesta = getTipoRegionRespuesta(imagen, arr_puntos);
+        return tipo_respuesta;
+    }
+
+    
+    /**
+     * Dada una imagen, retorna los cuatro tipos de regiones de respuestas detectadas.
+     * Espera respuestas para preguntas normales.
+     * 
+     * @param imagen                            Imagen con la pantalla
+     * 
+     * @return                                  Tipos de respuestas encontradas (TREG_RESP_xxx)
+     */
+    public static int [] getTiposRegionesRepuestaNormal(BufferedImage imagen) {
+
+        int [] arr_tipo_region = new int[4];
+        for (int i = 0; i < 4; i++) {
+            arr_tipo_region[i] = Regiones.getTipoRegionRespuestaNormal(imagen, i);
+        }
+        
+        return arr_tipo_region;
+    }
+    
+    
+    /**
+     * Dada una imagen, retorna los cuatro tipos de regiones de respuestas detectadas.
+     * Espera respuestas para preguntas alrgas.
+     * 
+     * @param imagen                            Imagen con la pantalla
+     * 
+     * @return                                  Tipos de respuestas encontradas (TREG_RESP_xxx)
+     */
+    public static int [] getTiposRegionesRepuestaLarga(BufferedImage imagen) {
+
+        int [] arr_tipo_region = new int[4];
+        for (int i = 0; i < 4; i++) {
+            arr_tipo_region[i] = Regiones.getTipoRegionRespuestaLarga(imagen, i);
+        }
+        
+        return arr_tipo_region;
+    }
+    
     
     
 }
