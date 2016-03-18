@@ -17,12 +17,13 @@ import java.awt.image.BufferedImage;
 public class Pantallas {
 
     /** Tipos de pantallas */
-    public static final int TIPO_PANT_DESCONOCIDA                             = 0;
-    public static final int TIPO_PANT_PREGUNTA_NORMAL_SIN_RESPONDER           = 1;
-    public static final int TIPO_PANT_PREGUNTA_NORMAL_RESPONDIDA              = 2;
-    public static final int TIPO_PANT_PREGUNTA_LARGA_SIN_RESPONDER            = 3;
-    public static final int TIPO_PANT_PREGUNTA_LARGA_RESPONDIDA               = 4;
-    public static final int TIPO_PANT_REVANCHA                                = 5;
+    public static final int TIPO_PANT_DESCONOCIDA                               = 0;
+    public static final int TIPO_PANT_PREGUNTA_NORMAL_SIN_RESPONDER             = 1;
+    public static final int TIPO_PANT_PREGUNTA_NORMAL_RESPONDIDA                = 2;
+    public static final int TIPO_PANT_PREGUNTA_LARGA_SIN_RESPONDER              = 3;
+    public static final int TIPO_PANT_PREGUNTA_LARGA_RESPONDIDA                 = 4;
+    public static final int TIPO_PANT_REVANCHA_TRES_OPCIONES                    = 5;
+    public static final int TIPO_PANT_REVANCHA_DOS_OPCIONES                     = 6;
     
 
     /**
@@ -39,7 +40,8 @@ public class Pantallas {
             case TIPO_PANT_PREGUNTA_NORMAL_RESPONDIDA:      return "Pregunta normal respondida";
             case TIPO_PANT_PREGUNTA_LARGA_SIN_RESPONDER:    return "Pregunta larga sin responder";
             case TIPO_PANT_PREGUNTA_LARGA_RESPONDIDA:       return "Pregunta larga respondida";
-            case TIPO_PANT_REVANCHA:                        return "Revancha";
+            case TIPO_PANT_REVANCHA_TRES_OPCIONES:          return "Revancha (tres opciones)";
+            case TIPO_PANT_REVANCHA_DOS_OPCIONES:           return "Revancha (dos opciones)";
         }
         
         return "Desconocida";
@@ -178,6 +180,35 @@ public class Pantallas {
     }
     
     
+    /**
+     * Comprueba si la pantalla es la de revancha con las tres opciones disponibles.
+     * 
+     * @param imagen                            Imagen de la pantalla
+     * 
+     * @return                                  'true' si lo es
+     *                                          'false' si no lo es
+     */
+    private static boolean esPantallaRevanchaTresOpciones(BufferedImage imagen) {
+        Puntos puntos = new Puntos();
+        boolean valido_revancha_3_op = puntos.pc_revancha_3_op.validar(imagen);
+        return valido_revancha_3_op;
+    }
+    
+    
+    /**
+     * Comprueba si la pantalla es la de revancha con las tres opciones disponibles.
+     * 
+     * @param imagen                            Imagen de la pantalla
+     * 
+     * @return                                  'true' si lo es
+     *                                          'false' si no lo es
+     */
+    private static boolean esPantallaRevanchaDosOpciones(BufferedImage imagen) {
+        Puntos puntos = new Puntos();
+        boolean valido_revancha_2_op = puntos.pc_revancha_2_op.validar(imagen);
+        return valido_revancha_2_op;
+    }
+    
     
     /**
      * Trata de identificar el tipo de pantalla suministrada en la imagen,
@@ -206,6 +237,16 @@ public class Pantallas {
         boolean es_preg_larga_r = esPantallaPreguntaLargaRespondida(imagen);
         if (es_preg_larga_r) {
             return TIPO_PANT_PREGUNTA_LARGA_RESPONDIDA;
+        }
+        
+        boolean es_rev_3_op = esPantallaRevanchaTresOpciones(imagen);
+        if (es_rev_3_op) {
+            return TIPO_PANT_REVANCHA_TRES_OPCIONES;
+        }
+        
+        boolean es_rev_2_op = esPantallaRevanchaDosOpciones(imagen);
+        if (es_rev_2_op) {
+            return TIPO_PANT_REVANCHA_DOS_OPCIONES;
         }
         
         return TIPO_PANT_DESCONOCIDA;

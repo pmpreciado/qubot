@@ -35,6 +35,8 @@ public class Puntos {
 
     /** Validaciones de colores de puntos de las pantallas */
     CPuntosColor pc_pregunta_larga_huecos;
+    CPuntosColor pc_revancha_3_op;
+    CPuntosColor pc_revancha_2_op;
     
     
     /**
@@ -46,8 +48,48 @@ public class Puntos {
         
         
     public final void initPuntosColor() {
+        
+        
         pc_pregunta_larga_huecos = new CPuntosColor(Colores.COLOR_NEGRO_FONDO);
         pc_pregunta_larga_huecos.addPuntosVerticales(50, 70, 88);
+        
+        
+        pc_revancha_3_op = new CPuntosColor(Colores.COLOR_VERDE_REVANCHA);
+        pc_revancha_3_op.addPuntosHorizontales(23, 77, 58);
+        pc_revancha_3_op.addPuntosHorizontales(23, 77, 65);
+        pc_revancha_3_op.addPuntosVerticales(23, 58, 65);
+        pc_revancha_3_op.addPuntosVerticales(77, 58, 65);
+        
+        pc_revancha_3_op.setColor(Colores.COLOR_ROJO_OTRO_ADVERSARIO);
+        pc_revancha_3_op.addPuntosHorizontales(23, 77, 70.4);
+        pc_revancha_3_op.addPuntosHorizontales(23, 77, 77.4);
+        pc_revancha_3_op.addPuntosVerticales(23, 70.4, 77.4);
+        pc_revancha_3_op.addPuntosVerticales(77, 70.4, 77.4);
+        
+        pc_revancha_3_op.setColor(Colores.COLOR_CIAN_VER_RESULTADOS);
+        pc_revancha_3_op.addPuntosHorizontales(23, 77, 82.8);
+        pc_revancha_3_op.addPuntosHorizontales(23, 77, 95.2);
+        pc_revancha_3_op.addPuntosVerticales(23, 82.8, 95.2);
+        pc_revancha_3_op.addPuntosVerticales(77, 82.8, 95.2);
+
+        
+        pc_revancha_2_op = new CPuntosColor(Colores.COLOR_ROJO_OTRO_ADVERSARIO);
+        pc_revancha_2_op.addPuntosHorizontales(23, 77, 58);
+        pc_revancha_2_op.addPuntosHorizontales(23, 77, 65);
+        pc_revancha_2_op.addPuntosVerticales(23, 58, 65);
+        pc_revancha_2_op.addPuntosVerticales(77, 58, 65);
+        
+        pc_revancha_2_op.setColor(Colores.COLOR_CIAN_VER_RESULTADOS);
+        pc_revancha_2_op.addPuntosHorizontales(23, 77, 70.4);
+        pc_revancha_2_op.addPuntosHorizontales(23, 77, 77.4);
+        pc_revancha_2_op.addPuntosVerticales(23, 70.4, 77.4);
+        pc_revancha_2_op.addPuntosVerticales(77, 70.4, 77.4);
+        
+        pc_revancha_2_op.setColor(Colores.COLOR_NEGRO_FONDO);
+        pc_revancha_2_op.addPuntosHorizontales(23, 77, 82.8);
+        pc_revancha_2_op.addPuntosHorizontales(23, 77, 95.2);
+        pc_revancha_2_op.addPuntosVerticales(23, 82.8, 95.2);
+        pc_revancha_2_op.addPuntosVerticales(77, 82.8, 95.2);
     }
     
 

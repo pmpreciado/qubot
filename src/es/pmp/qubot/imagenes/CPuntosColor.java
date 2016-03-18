@@ -152,10 +152,10 @@ public class CPuntosColor {
      */
     public static boolean validarPunto(BufferedImage imagen, int x_abs, int y_abs, Color color) {
         
-        int rgb = color.getRGB();
-        int color_detectado = imagen.getRGB(x_abs, y_abs);
+        int rgb_color_detectado = imagen.getRGB(x_abs, y_abs);
+        Color color_detectado = new Color(rgb_color_detectado);
         
-        if (rgb == color_detectado) {
+        if (Colores.similares(color, color_detectado)) {
             return true;
         }
         
