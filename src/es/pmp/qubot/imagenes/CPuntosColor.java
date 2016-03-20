@@ -111,7 +111,32 @@ public class CPuntosColor {
     
     /**
      * Añade varios puntos en vertical al conjunto, en intervalos de a 1.
-     * El punto debe figurar en el último color utilizado.
+     * Los puntos deben figurar en el color especificado.
+     * 
+     * @param linea_horizontal                  Línea horizontal
+     * @param color                             Color que deben tener los puntos que forman el rectángulo
+     */
+    public void addPuntosHorizontales(CLineaHorizontal linea_horizontal, Color color) {
+        this.color_actual = color;
+        addPuntosHorizontales(linea_horizontal.x0, linea_horizontal.x1, linea_horizontal.y);
+    }
+    
+    
+    /**
+     * Añade varios puntos en vertical al conjunto, en intervalos de a 1.
+     * Los puntos deben figurar en el último color utilizado.
+     * 
+     * @param linea_horizontal                  Línea horizontal
+     */
+    public void addPuntosHorizontales(CLineaHorizontal linea_horizontal) {
+        addPuntosHorizontales(linea_horizontal, color_actual);
+    }
+
+    
+    
+    /**
+     * Añade varios puntos en vertical al conjunto, en intervalos de a 1.
+     * Los puntos deben figurar en el último color utilizado.
      * 
      * @param x                                 Coordenada relativa X (%)
      * @param y0                                Coordenada relativa Y inicial (%)
@@ -122,6 +147,85 @@ public class CPuntosColor {
         for (double y = y0; y < y1; y++) {
             addPunto(x, y);
         }
+    }
+
+    
+    /**
+     * Añade varios puntos en vertical al conjunto, en intervalos de a 1.
+     * Los puntos deben figurar en el color especificado.
+     * 
+     * @param linea_vertical                    Línea vertical
+     * @param color                             Color que deben tener los puntos que forman el rectángulo
+     */
+    public void addPuntosVerticales(CLineaVertical linea_vertical, Color color) {
+        this.color_actual = color;
+        addPuntosVerticales(linea_vertical.x, linea_vertical.y0, linea_vertical.y1);
+    }
+    
+    
+    /**
+     * Añade varios puntos en vertical al conjunto, en intervalos de a 1.
+     * Los puntos deben figurar en el último color utilizado.
+     * 
+     * @param linea_vertical                    Línea vertical
+     */
+    public void addPuntosVerticales(CLineaVertical linea_vertical) {
+        addPuntosVerticales(linea_vertical, color_actual);
+    }
+
+    
+    /**
+     * Añade varios puntos en al conjunto, formando un rectángulo, en intervalos de a 1.
+     * Los puntos deben figurar en el color especificado.
+     * 
+     * @param x0                                Coordenada relativa X (%) de la esquina superior izquierda
+     * @param y0                                Coordenada relativa Y (%) de la esquina superior izquierda
+     * @param x1                                Coordenada relativa X (%) de la esquina inferior derecha
+     * @param y1                                Coordenada relativa Y (%) de la esquina inferior derecha
+     * @param color                             Color que deben tener los puntos que forman el rectángulo
+     */
+    public void addPuntosRectangulares(double x0, double y0, double x1, double y1, Color color) {
+        this.color_actual = color;
+        addPuntosHorizontales(x0, x1, y0);
+        addPuntosHorizontales(x0, x1, y1);
+        addPuntosVerticales(x0, y0, y1);
+        addPuntosVerticales(x1, y0, y1);
+    }
+    
+    /**
+     * Añade varios puntos en al conjunto, formando un rectángulo, en intervalos de a 1.
+     * Los puntos deben figurar en el último color utilizado.
+     * 
+     * @param x0                                Coordenada relativa X (%) de la esquina superior izquierda
+     * @param y0                                Coordenada relativa Y (%) de la esquina superior izquierda
+     * @param x1                                Coordenada relativa X (%) de la esquina inferior derecha
+     * @param y1                                Coordenada relativa Y (%) de la esquina inferior derecha
+     */
+    public void addPuntosRectangulares(double x0, double y0, double x1, double y1) {
+        addPuntosRectangulares(x0, y0, x1, y1, color_actual);
+    }
+    
+    
+    /**
+     * Añade varios puntos en al conjunto, formando un rectángulo, en intervalos de a 1.
+     * Los puntos deben figurar en el color especificado.
+     * 
+     * @param rectangulo                        Rectángulo del que tomar los puntos
+     * @param color                             Color que deben tener los puntos que forman el rectángulo
+     */
+    public void addPuntosRectangulares(CRectangulo rectangulo, Color color) {
+        addPuntosRectangulares(rectangulo.x0, rectangulo.y0, rectangulo.x1, rectangulo.y1, color);
+    }
+    
+    
+    /**
+     * Añade varios puntos en al conjunto, formando un rectángulo, en intervalos de a 1.
+     * Los puntos deben figurar en el último color utilizado.
+     * 
+     * @param rectangulo                        Rectángulo del que tomar los puntos
+     */
+    public void addPuntosRectangulares(CRectangulo rectangulo) {
+        addPuntosRectangulares(rectangulo.x0, rectangulo.y0, rectangulo.x1, rectangulo.y1);
     }
     
     
@@ -152,10 +256,10 @@ public class CPuntosColor {
      */
     public static boolean validarPunto(BufferedImage imagen, int x_abs, int y_abs, Color color) {
         
-        int rgb = color.getRGB();
-        int color_detectado = imagen.getRGB(x_abs, y_abs);
+        int rgb_color_detectado = imagen.getRGB(x_abs, y_abs);
+        Color color_detectado = new Color(rgb_color_detectado);
         
-        if (rgb == color_detectado) {
+        if (Colores.similares(color, color_detectado)) {
             return true;
         }
         
@@ -231,6 +335,10 @@ public class CPuntosColor {
             Color color = l_colores.get(i);
             
             boolean punto_validado = validarPunto(imagen, punto, color);
+// Debug
+if (!punto_validado) {
+    punto_validado = validarPunto(imagen, punto, color);
+}
             if (!punto_validado) {
                 return false;
             }
@@ -238,4 +346,7 @@ public class CPuntosColor {
         
         return true;
     }
+    
+    
 }
+
