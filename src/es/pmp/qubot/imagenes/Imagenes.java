@@ -20,7 +20,6 @@ import java.awt.image.PixelGrabber;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import javax.imageio.ImageIO;
 
 /**
@@ -29,23 +28,6 @@ import javax.imageio.ImageIO;
  */
 public class Imagenes {
 
-    
-//    public static BufferedImage escalarImagen(BufferedImage imagen_original, float escala_horizontal, float escala_vertical) {
-//        
-//        int ancho = imagen_original.getWidth();
-//        int alto = imagen_original.getHeight();
-//        
-//        BufferedImage imagen_escala = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
-//
-//        AffineTransform at = new AffineTransform();
-//        at.scale(escala_horizontal, escala_vertical);
-//        AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-//        imagen_escala = scaleOp.filter(imagen_original, imagen_escala);
-//        return imagen_escala;
-//    }
-    
-    
-    
 
     /**
      * Comprueba si la imagen dada contiene píxeles transparentes.
@@ -386,7 +368,7 @@ public class Imagenes {
         
         g2d.draw(rectangulo_2d);
     }
-    
+
 
     /**
      * Duplica una imagen dada.
@@ -403,7 +385,321 @@ public class Imagenes {
         return imagen_duplicada;
     }
     
+    
+    /**
+     * Extrae un recorte de una imagen dada.
+     * 
+     * @param imagen_original                   Imagen a duplicar
+     * @param rectangulo                        Rectángulo a extraer, con las coordenadas relativas
+     * 
+     * @return                                  Imagen extraída
+     */
+    public static BufferedImage extraerSubimagen(BufferedImage imagen_original, CRectangulo rectangulo) {
+        BufferedImage recorte = duplicarImagen(imagen_original);
+        
+        int ancho = imagen_original.getWidth();
+        int alto = imagen_original.getHeight();
+        
+        int x0_abs = CPunto.getCoordAbs(rectangulo.x0, ancho);
+        int y0_abs = CPunto.getCoordAbs(rectangulo.y0, alto);
+        int x1_abs = CPunto.getCoordAbs(rectangulo.x1, ancho);
+        int y1_abs = CPunto.getCoordAbs(rectangulo.y1, alto);
+        
+        int ancho_abs = x1_abs - x0_abs;
+        int alto_abs = y1_abs - y0_abs;
+        
+        recorte = recorte.getSubimage(x0_abs, y0_abs, ancho_abs, alto_abs);
+        return recorte;
+    }
+    
+
+
+    /**
+     * Reemplaza un color por otro en una imagen dada.
+     * 
+     * @param imagen                            Imagen
+     * @param color_origen
+     * @param color_destino
+     * @param max_distancia                     Máxima distancia permitida en cada uno de los tres componentes (en valor absoluto, 0-255)
+     */
+    public static void reemplazarColor(BufferedImage imagen, Color color_origen, Color color_destino, int max_distancia) {
+        
+        int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+        
+        int color_destino_rgb = color_destino.getRGB();
+
+        for (int y = 0; y < alto; y++) {
+            for (int x = 0; x < ancho; x++) {
+                int rgb = imagen.getRGB(x, y);
+                Color color_pixel = new Color(rgb);
+                boolean similares = Colores.similares(color_pixel, color_origen, max_distancia);
+                if (similares) {
+                    imagen.setRGB(x, y, color_destino_rgb);
+                }
+            }
+        }
+    }
+    
+    
+    
+    /**
+     * Obtiene la suma de los componentes de colores de una imagen.
+     * 
+     * @param imagen                            Imagen
+     * 
+     * @return                                  Array de tres posiciones
+     *                                              0: Suma de componentes rojos
+     *                                              1: Suma de componentes verdes
+     *                                              2: Suma de componentes azules
+     */
+    public static int [] getSumaComponentes(BufferedImage imagen) {
+        int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+        
+        int suma_red = 0;
+        int suma_green = 0;
+        int suma_blue = 0;
+        
+        for (int y = 0; y < alto; y++) {
+            for (int x = 0; x < ancho; x++) {
+                int rgb = imagen.getRGB(x, y);
+                int red   = (rgb & 0x00ff0000) >> 16;
+                int green = (rgb & 0x0000ff00) >> 8;
+                int blue  =  rgb & 0x000000ff;
+                
+                suma_red    += red;
+                suma_green  += green;
+                suma_blue   += blue;
+            }
+        }
+        
+        int [] result = {
+            suma_red,
+            suma_green,
+            suma_blue
+        };
+                
+        return result;
+    }
+    
+    
+    /**
+     * Dado un color, comprueba si se puede considerar negro.
+     * 
+     * @param rgb                               Color
+     * @param umbral_negro                      Umbral de negro, expresado en % (0 a 100)
+     *                                          A mayor sea, se aceptan como negros colores más claros
+     *                                          Si es 0, sólo se considerará negro el negro puro
+     * 
+     * @return                                  'true' si el color se puede considerar negro
+     *                                          'false' en caso contrario
+     */
+    public static boolean esNegro(int rgb, double umbral_negro) {
+        int red   = (rgb & 0x00ff0000) >> 16;
+        int green = (rgb & 0x0000ff00) >> 8;
+        int blue  =  rgb & 0x000000ff;
+        
+        double bw = 0.2126 * red  + 0.7152 * green + 0.0722 * blue;
+        double umbral_255 = umbral_negro * 255 / 100;
+        
+        if (bw < umbral_255) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
+    /**
+     * Obtiene la suma de píxeles blancos y negros de una imagen.
+     * Los píxeles de la imagen son reducidos a blanco o negro.
+     * 
+     * @param imagen                            Imagen
+     * @param umbral_negro                      Umbral de negro, expresado en % (0 a 100)
+     * 
+     * @return                                  array de dos posiciones
+     *                                              0: Suma de píxeles blancos
+     *                                              1: Suma de píxeles negros
+     */
+    public static int [] getSumaBn(BufferedImage imagen, double umbral_negro) {
+        int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+        
+        int suma_b = 0;
+        int suma_n = 0;
+        
+        for (int y = 0; y < alto; y++) {
+            for (int x = 0; x < ancho; x++) {
+                int rgb = imagen.getRGB(x, y);
+                boolean es_negro = esNegro(rgb, umbral_negro);
+
+                if (es_negro) {
+                    suma_n++;
+                } else {
+                    suma_b++;
+                }
+            }
+        }
+        
+        int [] result = {
+            suma_b,
+            suma_n
+        };
+                
+        return result;
+    }
 
     
+    /**
+     * Obtiene la suma de píxeles blancos y negros de una imagen.
+     * Los píxeles de la imagen son reducidos a blanco o negro.
+     * Hace dos sumas:
+     *     Por un lado, la mitad superior de la imagen
+     *     Por otro, la mitad inferior
+     * 
+     * @param imagen                            Imagen
+     * @param umbral_negro                      Umbral de negro, expresado en % (0 a 100)
+     * 
+     * @return                                  array de dos posiciones
+     *                                              0: Suma de píxeles blancos mitad superior
+     *                                              1: Suma de píxeles negros mitad superior
+     *                                              2: Suma de píxeles blancos mitad inferior
+     *                                              2: Suma de píxeles negros mitad inferior
+     */
+    public static int [] getSumaBnDobleVertical(BufferedImage imagen, double umbral_negro) {
+        int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+        int mitad_alto = alto / 2;
+        
+        int suma_b_0 = 0;
+        int suma_n_0 = 0;
+        int suma_b_1 = 0;
+        int suma_n_1 = 0;
+
+        
+        for (int y = 0; y < alto; y++) {
+            for (int x = 0; x < ancho; x++) {
+                int rgb = imagen.getRGB(x, y);
+                boolean es_negro = esNegro(rgb, umbral_negro);
+
+                if (y < mitad_alto) {
+                    if (es_negro) {
+                        suma_n_0++;
+                    } else {
+                        suma_b_0++;
+                    }
+                } else {
+                    if (es_negro) {
+                        suma_n_1++;
+                    } else {
+                        suma_b_1++;
+                    }
+                }
+            }
+        }
+        
+        int [] result = {
+            suma_b_0,
+            suma_n_0,
+            suma_b_1,
+            suma_n_1            
+        };
+                
+        return result;
+    }
+
+    
+    
+    /**
+     * Obtiene la suma de píxeles blancos y negros de una imagen.
+     * Los píxeles de la imagen son reducidos a blanco o negro.
+     * Hace dos sumas:
+     *     Por un lado, la mitad izquierda de la imagen
+     *     Por otro, la mitad derecha
+     * 
+     * @param imagen                            Imagen
+     * @param umbral_negro                      Umbral de negro, expresado en % (0 a 100)
+     * 
+     * @return                                  array de dos posiciones
+     *                                              0: Suma de píxeles blancos mitad izquierda
+     *                                              1: Suma de píxeles negros mitad izquierda
+     *                                              2: Suma de píxeles blancos mitad derecha
+     *                                              2: Suma de píxeles negros mitad derecha
+     */
+    public static int [] getSumaBnDobleHorizontal(BufferedImage imagen, double umbral_negro) {
+        int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+        int mitad_ancho = ancho / 2;
+        
+        int suma_b_0 = 0;
+        int suma_n_0 = 0;
+        int suma_b_1 = 0;
+        int suma_n_1 = 0;
+
+        
+        for (int y = 0; y < alto; y++) {
+            for (int x = 0; x < ancho; x++) {
+                int rgb = imagen.getRGB(x, y);
+                boolean es_negro = esNegro(rgb, umbral_negro);
+
+                if (y < mitad_ancho) {
+                    if (es_negro) {
+                        suma_n_0++;
+                    } else {
+                        suma_b_0++;
+                    }
+                } else {
+                    if (es_negro) {
+                        suma_n_1++;
+                    } else {
+                        suma_b_1++;
+                    }
+                }
+            }
+        }
+        
+        int [] result = {
+            suma_b_0,
+            suma_n_0,
+            suma_b_1,
+            suma_n_1            
+        };
+                
+        return result;
+    }
+    
+    /**
+     * Convierte uma imagen dada a blanco y negro.
+     * 
+     * @param imagen
+     * @param umbral_negro                      Umbral de negro, expresado en % (0 a 100)
+     *                                          A mayor sea, se aceptan como negros colores más claros
+     *                                          Si es 0, sólo se considerará negro el negro puro
+     */
+    public static void convertirBlancoYNegro(BufferedImage imagen, double umbral_negro) {
+        
+        Color color_negro = Color.BLACK;
+        Color color_blanco = Color.WHITE;
+        
+        int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+        
+        int suma_b = 0;
+        int suma_n = 0;
+        
+        for (int y = 0; y < alto; y++) {
+            for (int x = 0; x < ancho; x++) {
+                int rgb = imagen.getRGB(x, y);
+                boolean es_negro = esNegro(rgb, umbral_negro);
+                
+                if (es_negro) {
+                    imagen.setRGB(x, y, color_negro.getRGB());
+                } else {
+                    imagen.setRGB(x, y, color_blanco.getRGB());
+                }
+            }
+        }
+    }
     
 }

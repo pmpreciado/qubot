@@ -17,17 +17,19 @@ public class Colores {
     
     /** Colores */
     public static final Color COLOR_NEGRO_FONDO_PREGUNTAS       = hex2Color("010001");
-    public static final Color COLOR_BLANCO_FONDO_PREGUNTA      = hex2Color("ffffff");
-    public static final Color COLOR_VERDE_ACIERTO              = hex2Color("037c46");
-    public static final Color COLOR_ROJO_FALLO                 = hex2Color("9a3234");
+    public static final Color COLOR_BLANCO_FONDO_PREGUNTA       = hex2Color("ffffff");
+    public static final Color COLOR_VERDE_ACIERTO               = hex2Color("037c46");
+    public static final Color COLOR_ROJO_FALLO                  = hex2Color("9a3234");
     
-    public static final Color COLOR_VERDE_REVANCHA             = COLOR_VERDE_ACIERTO;
-    public static final Color COLOR_ROJO_OTRO_ADVERSARIO       = hex2Color("ff5557");
-    public static final Color COLOR_CIAN_VER_RESULTADOS        = hex2Color("02b5db");
+    public static final Color COLOR_VERDE_REVANCHA              = COLOR_VERDE_ACIERTO;
+    public static final Color COLOR_ROJO_OTRO_ADVERSARIO        = hex2Color("ff5557");
+    public static final Color COLOR_CIAN_VER_RESULTADOS         = hex2Color("02b5db");
     
-    public static final Color COLOR_NEGRO_FONDO_JUGAR          = hex2Color("242224");
+    public static final Color COLOR_SALMON_TEXTO_BOTON_JUGAR    = hex2Color("ff7879");
     
-    public static final Color COLOR_AZUL_MARCO_VYSOR           = hex2Color("468FCC");
+    public static final Color COLOR_NEGRO_FONDO_JUGAR           = hex2Color("242224");
+    
+    public static final Color COLOR_AZUL_MARCO_VYSOR            = hex2Color("468FCC");
 
     
     /** Máxima distancia permitida en cada uno de los tres componentes para que dos colores se consideren similares */
@@ -103,7 +105,7 @@ public class Colores {
      * 
      * @param color_1                           Primer color a comparar
      * @param color_2                           Segundo color a comparar
-     * @param max_distancia                     Máxima distancia permitida en cada uno de los tres componentes
+     * @param max_distancia                     Máxima distancia permitida en cada uno de los tres componentes (en valor absoluto, 0-255)
      * 
      * @return                                  'true' si los colores son iguales o se consideran similares
      *                                          'false' en caso contrario
@@ -118,7 +120,6 @@ public class Colores {
         int g_2 = color_2.getGreen();
         int b_2 = color_2.getBlue();
 
-        
         int dist_r = Math.abs(r_1 - r_2);
         int dist_g = Math.abs(g_1 - g_2);
         int dist_b = Math.abs(b_1 - b_2);

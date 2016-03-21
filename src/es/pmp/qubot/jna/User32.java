@@ -1,4 +1,4 @@
-package es.pmp.qubot;
+package es.pmp.qubot.jna;
 
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;

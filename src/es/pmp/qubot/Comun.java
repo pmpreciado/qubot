@@ -182,4 +182,94 @@ public class Comun {
 
         return nombre + "." + extension;
     }
-}
+    
+    
+    
+    
+    /**
+     * Compara dos números por aproximación.
+     * 
+     * @param n1                                Primer número
+     * @param n2                                Segundo número
+     * @param max_distancia                     Máxima distancia permitida (en %, de 0 a 100)
+     * 
+     * @return                                  'true' si se consideran similares
+     *                                          'false' en caso contrario
+     */
+    public static boolean similares(double n1, double n2, int max_distancia) {
+        double dist = n1 / n2;
+        double inv_dist = Math.abs(1 - dist);
+        double tpc_dist = inv_dist * 100;
+        if (tpc_dist > max_distancia) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    /**
+     * Compara dos números por aproximación.
+     * 
+     * @param n1                                Primer número
+     * @param n2                                Segundo número
+     * @param max_distancia                     Máxima distancia permitida (en %, de 0 a 100)
+     * 
+     * @return                                  'true' si se consideran similares
+     *                                          'false' en caso contrario
+     */
+    public static boolean similares(int n1, int n2, int max_distancia) {
+        boolean similares = similares((double) n1, (double) n2, max_distancia);
+        return similares;
+    }
+    
+    
+    /**
+     * Compara dos arrays de números por aproximación.
+     * 
+     * @param arr_n1                            Primer array de números
+     * @param arr_n2                            Segundo array de números
+     * @param max_distancia                     Máxima distancia permitida (en %, de 0 a 100)
+     * 
+     * @return                                  'true' si todos los elementos se consideran similares
+     *                                          'false' en caso contrario
+     */
+    public static boolean similares(double [] arr_n1, double [] arr_n2, int max_distancia) {
+        
+        for (int i = 0; i < arr_n1.length; i++) {
+            double n1 = arr_n1[i];
+            double n2 = arr_n2[i];
+            boolean similares = similares(n1, n2, max_distancia);
+            if (!similares) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    
+    /**
+     * Compara dos arrays de números por aproximación.
+     * 
+     * @param arr_n1                            Primer array de números
+     * @param arr_n2                            Segundo array de números
+     * @param max_distancia                     Máxima distancia permitida (en %, de 0 a 100)
+     * 
+     * @return                                  'true' si todos los elementos se consideran similares
+     *                                          'false' en caso contrario
+     */
+    public static boolean similares(int [] arr_n1, int [] arr_n2, int max_distancia) {
+        
+        for (int i = 0; i < arr_n1.length; i++) {
+            int n1 = arr_n1[i];
+            int n2 = arr_n2[i];
+            boolean similares = similares(n1, n2, max_distancia);
+            if (!similares) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    }

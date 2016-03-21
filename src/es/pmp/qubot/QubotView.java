@@ -4,6 +4,11 @@
 
 package es.pmp.qubot;
 
+import es.pmp.qubot.conocimiento.CPregunta;
+import es.pmp.qubot.control.Clic;
+import es.pmp.qubot.imagenes.CPunto;
+import es.pmp.qubot.imagenes.Colores;
+import es.pmp.qubot.jna.Jna;
 import es.pmp.qubot.imagenes.Imagenes;
 import es.pmp.qubot.imagenes.Pantallas;
 import es.pmp.qubot.imagenes.Regiones;
@@ -14,6 +19,7 @@ import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -41,7 +47,7 @@ public class QubotView extends FrameView {
         this.tfTituloVentanaVysor.setText(Comun.TITULO_VENTANA_VYSOR);
         //this.getFrame().setSize(600, 400);
         
-        this.tfNombreFichero.setText("01_texto_01.png");
+        this.tfNombreFichero.setText("22_imagenes_01.png");
         
         imagen_en_pantalla = null;
     }
@@ -66,6 +72,11 @@ public class QubotView extends FrameView {
         btnEnviarVysorAlFrente = new javax.swing.JButton();
         btnCapturarVysor = new javax.swing.JButton();
         btnGuardarPantallaVysor = new javax.swing.JButton();
+        btnCapturarVysor1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        tfX = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        tfY = new javax.swing.JTextField();
         btnTestDetectarVysor1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         lblCapturaVysor = new javax.swing.JLabel();
@@ -76,6 +87,9 @@ public class QubotView extends FrameView {
         tfIdentificacion = new javax.swing.JTextField();
         btnIdentificar = new javax.swing.JButton();
         btnRegiones = new javax.swing.JButton();
+        lblPos = new javax.swing.JLabel();
+        btnTest = new javax.swing.JButton();
+        tfTest = new javax.swing.JTextField();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu menuArchivo = new javax.swing.JMenu();
         miListaProcesos = new javax.swing.JMenuItem();
@@ -144,6 +158,26 @@ public class QubotView extends FrameView {
             }
         });
 
+        btnCapturarVysor1.setMnemonic('T');
+        btnCapturarVysor1.setText(resourceMap.getString("btnCapturarVysor1.text")); // NOI18N
+        btnCapturarVysor1.setName("btnCapturarVysor1"); // NOI18N
+        btnCapturarVysor1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapturarVysor1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
+        jLabel4.setName("jLabel4"); // NOI18N
+
+        tfX.setText(resourceMap.getString("tfX.text")); // NOI18N
+        tfX.setName("tfX"); // NOI18N
+
+        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
+        jLabel5.setName("jLabel5"); // NOI18N
+
+        tfY.setName("tfY"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -155,15 +189,25 @@ public class QubotView extends FrameView {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfTituloVentanaVysor, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnTestDetectarVysor)
-                        .addGap(9, 9, 9)
-                        .addComponent(btnEnviarVysorAlFrente))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCapturarVysor)
+                        .addComponent(btnTestDetectarVysor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnGuardarPantallaVysor)))
+                        .addComponent(btnEnviarVysorAlFrente))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnCapturarVysor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGuardarPantallaVysor))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfX, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfY, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCapturarVysor1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -175,14 +219,21 @@ public class QubotView extends FrameView {
                     .addComponent(tfTituloVentanaVysor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTestDetectarVysor)
                     .addComponent(btnEnviarVysorAlFrente))
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCapturarVysor)
                     .addComponent(btnGuardarPantallaVysor))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCapturarVysor1)
+                    .addComponent(jLabel4)
+                    .addComponent(tfX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(tfY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -201,6 +252,11 @@ public class QubotView extends FrameView {
         lblCapturaVysor.setText(resourceMap.getString("lblCapturaVysor.text")); // NOI18N
         lblCapturaVysor.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblCapturaVysor.setName("lblCapturaVysor"); // NOI18N
+        lblCapturaVysor.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblCapturaVysorMouseMoved(evt);
+            }
+        });
         jScrollPane3.setViewportView(lblCapturaVysor);
 
         jPanel2.setName("jPanel2"); // NOI18N
@@ -281,21 +337,43 @@ public class QubotView extends FrameView {
                 .addContainerGap())
         );
 
+        lblPos.setText(resourceMap.getString("lblPos.text")); // NOI18N
+        lblPos.setName("lblPos"); // NOI18N
+
+        btnTest.setText(resourceMap.getString("btnTest.text")); // NOI18N
+        btnTest.setName("btnTest"); // NOI18N
+        btnTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTestActionPerformed(evt);
+            }
+        });
+
+        tfTest.setBackground(resourceMap.getColor("tfTest.background")); // NOI18N
+        tfTest.setToolTipText(resourceMap.getString("tfTest.toolTipText")); // NOI18N
+        tfTest.setName("tfTest"); // NOI18N
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnTestDetectarVysor1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(mainPanelLayout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(btnTest)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tfTest, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnTestDetectarVysor1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(mainPanelLayout.createSequentialGroup()
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblPos))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(142, 142, 142))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,9 +383,14 @@ public class QubotView extends FrameView {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblPos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnTestDetectarVysor1)
+                .addGap(7, 7, 7)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTestDetectarVysor1)
+                    .addComponent(btnTest)
+                    .addComponent(tfTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -431,26 +514,45 @@ public class QubotView extends FrameView {
         trazarRegiones();
     }//GEN-LAST:event_btnRegionesActionPerformed
 
+    private void lblCapturaVysorMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapturaVysorMouseMoved
+        int x = evt.getX();
+        int y = evt.getY();
+        mostrarCoordenadasSobrePantalla(x, y);
+    }//GEN-LAST:event_lblCapturaVysorMouseMoved
+
+    private void btnCapturarVysor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapturarVysor1ActionPerformed
+        enviarClicAVysor();
+    }//GEN-LAST:event_btnCapturarVysor1ActionPerformed
+
+    private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
+        test();
+    }//GEN-LAST:event_btnTestActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapturarVysor;
+    private javax.swing.JButton btnCapturarVysor1;
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEnviarVysorAlFrente;
     private javax.swing.JButton btnGuardarPantallaVysor;
     private javax.swing.JButton btnIdentificar;
     private javax.swing.JButton btnRegiones;
+    private javax.swing.JButton btnTest;
     private javax.swing.JButton btnTestDetectarVysor;
     private javax.swing.JButton btnTestDetectarVysor1;
     private javax.swing.JFrame frmListaProcesos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblCapturaVysor;
+    private javax.swing.JLabel lblPos;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem miListaProcesos;
@@ -458,9 +560,38 @@ public class QubotView extends FrameView {
     private javax.swing.JTextArea taProcesoVysor;
     private javax.swing.JTextField tfIdentificacion;
     private javax.swing.JTextField tfNombreFichero;
+    private javax.swing.JTextField tfTest;
     private javax.swing.JTextField tfTituloVentanaVysor;
+    private javax.swing.JTextField tfX;
+    private javax.swing.JTextField tfY;
     // End of variables declaration//GEN-END:variables
 
+
+    
+    /**
+     * Muestra un mensaje de error.
+     * 
+     * @param mensaje                           Mensaje a mostrar
+     */
+    private void mostrarError(String mensaje) {
+        String titulo = "Error";
+        JOptionPane.showMessageDialog(this.getFrame(), mensaje, titulo, JOptionPane.ERROR_MESSAGE);
+    }
+    
+    
+    /**
+     * Muestra un mensaje de error.
+     * Vuelca la excepción al logger.
+     * 
+     * @param th                                Excepción de la que se tomará el mensaje de error
+     */
+    private void mostrarError(Throwable th) {
+        
+        Logger.getLogger(QubotView.class.getName()).log(Level.SEVERE, null, th);
+        String mensaje = th.getMessage();
+        mostrarError(mensaje);
+    }
+    
     
     /**
      * Obtiene el proceso visor.
@@ -510,17 +641,27 @@ public class QubotView extends FrameView {
         }
     }
 
+    
+
+    /**
+     * Envia el proceso Vysor al frente.
+     * 
+     * @param proceso_vysor                     Proceso vysor
+     */
+    private void enviarProcesoVysorAlFrente(CProceso proceso_vysor) {
+        if (proceso_vysor != null) {
+            jna.enviarAlFrente(proceso_vysor.hwnd);
+        }
+    }
+    
 
     /**
      * Envia el proceso Vysor al frente.
      */
     private void enviarProcesoVysorAlFrente() {
         CProceso proceso_vysor = getProcesoVysor();
-        if (proceso_vysor != null) {
-            jna.enviarAlFrente(proceso_vysor.hwnd);
-        }
+        enviarProcesoVysorAlFrente(proceso_vysor);
     }
-
     
     
     /**
@@ -547,7 +688,7 @@ public class QubotView extends FrameView {
             }
         
         } catch (InterruptedException | AWTException th) {
-            Logger.getLogger(QubotView.class.getName()).log(Level.SEVERE, null, th);
+            mostrarError(th);
         }
         
         return null;
@@ -604,7 +745,7 @@ public class QubotView extends FrameView {
                 ruta_fichero_generado = Imagenes.guardarImagenPng(img, ruta_fichero);
                 
             } catch (IOException ex) {
-                Logger.getLogger(QubotView.class.getName()).log(Level.SEVERE, null, ex);
+                mostrarError(ex);
             }
         }
         
@@ -633,10 +774,7 @@ public class QubotView extends FrameView {
         try {
             imagen_en_pantalla = Imagenes.cargarImagenPng(ruta_fichero);
         } catch (Exception ex) {
-            String titulo = "Error";
-            String mensaje = ex.getMessage();
-            JOptionPane.showMessageDialog(this.getFrame(), mensaje, titulo, JOptionPane.WARNING_MESSAGE);
-            Logger.getLogger(QubotView.class.getName()).log(Level.SEVERE, null, ex);
+            mostrarError(ex);
         }
 
         if (imagen_en_pantalla != null) {
@@ -651,9 +789,10 @@ public class QubotView extends FrameView {
     private void trazarRegiones() {
         if (imagen_en_pantalla != null) {
             BufferedImage imagen_regiones = Imagenes.duplicarImagen(imagen_en_pantalla);
-            //Regiones.trazarRegionesPregunta(imagen_regiones);
+            Regiones.trazarRegionesPregunta(imagen_regiones);
             //Regiones.trazarRegionesRevancha(imagen_regiones);
-            Regiones.trazarRegionesJugar(imagen_regiones);
+            //Regiones.trazarRegionesJugar(imagen_regiones);
+            //Regiones.trazarRegionesJuegaYa(imagen_regiones);
             mostrarImagenEnForm(imagen_regiones);
         }
     }
@@ -669,7 +808,70 @@ public class QubotView extends FrameView {
             this.tfIdentificacion.setText(desc_tipo_pantalla);
         }
     }
+
     
+    /**
+     * Muestra las coordenadas relativas y absolutas del cursor sobre la imagen capturada.
+     * 
+     * @param x                                 Posición X del cursor relativa a la captura (0 = izquierda)
+     * @param y                                 Posición Y del cursor relativa a la captura (0 = arriba)
+     */
+    private void mostrarCoordenadasSobrePantalla(int x, int y) {
+        int ancho_captura = lblCapturaVysor.getWidth();
+        int alto_captura = lblCapturaVysor.getHeight();
+        
+        double rel_x = 0;
+        double rel_y = 0;
+        if (ancho_captura > 0) {
+            rel_x = (double) x * (double) 100 / (double) ancho_captura;
+        }
+        if (alto_captura > 0) {
+            rel_y = (double) y * (double) 100 / (double) alto_captura;
+        }
+        
+        int i_rel_x = (int) Math.round(rel_x);
+        int i_rel_y = (int) Math.round(rel_y);
+        String texto = "X: " + i_rel_x + ", Y: " + i_rel_y;
+        this.lblPos.setText(texto);
+    }
+
+
+    /**
+     * Envía un clic a la pantalla del vysor.
+     */
+    private void enviarClicAVysor() {
+        
+        try {
+            int x = Integer.parseInt(tfX.getText());
+            int y = Integer.parseInt(tfY.getText());
+
+            CPunto punto = new CPunto(x, y);
+            CProceso proceso_vysor = getProcesoVysor();
+            Clic clic = new Clic();
+            clic.clic(proceso_vysor, punto);
+            
+        } catch (Throwable th) {
+            mostrarError(th);
+        }
+
+        
+        // Test enviar 100 clics al azar
+        /*
+        try {
+            CProceso proceso_vysor = getProcesoVysor();
+            enviarProcesoVysorAlFrente(proceso_vysor);
+            CRectangulo rect = new CRectangulo(4, 12, 96, 50);
+            Clic clic = new Clic();
+            
+            for (int i = 0; i < 100; i++) {
+                clic.clic(proceso_vysor, rect);
+            }
+        } catch (Throwable th) {
+            mostrarError(th);
+        }
+        */
+    }
+
     
     /**
      * Sale de la aplicación.
@@ -687,5 +889,43 @@ public class QubotView extends FrameView {
         return;*/
         
         System.exit(0);
+    }
+
+    private void testDistribucionGaussiana() {
+        double x0 = 0;
+        double x1 = 20;
+        double desviacion_tipica = (x1 - x0) / 4;
+        double offset = (x1 - x0) / 2;
+        
+        Random r = new Random();
+        
+        for (int i = 0; i < 1000; i++) {
+            double d = -999999;
+            while (d < x0 || d > x1) {
+                d = r.nextGaussian() * desviacion_tipica + x0 + offset;
+            }
+            
+            int n = (int) Math.round(d);
+            System.out.println(n);
+        }
+        
+    }
+    
+    
+    private void test() {
+        //BufferedImage imagen_pregunta = Imagenes.extraerSubimagen(imagen_en_pantalla, Regiones.PPREG_RECT_ENUNCIADO_NORMAL);
+        //BufferedImage imagen_rec = Imagenes.extraerSubimagen(imagen_en_pantalla, Regiones.PPREG_RECT_IMAGEN_ENUNCIADO_LARGA);
+        BufferedImage imagen = imagen_en_pantalla;
+        
+        Imagenes.reemplazarColor(imagen, Colores.COLOR_VERDE_ACIERTO, Colores.COLOR_BLANCO_FONDO_PREGUNTA, 40);
+        Imagenes.reemplazarColor(imagen, Colores.COLOR_ROJO_FALLO, Colores.COLOR_BLANCO_FONDO_PREGUNTA, 40);
+        
+        //int umbral_negro = 50;
+        //Imagenes.convertirBlancoYNegro(imagen, umbral_negro);
+        this.mostrarImagenEnForm(imagen);
+                
+        CPregunta pregunta = new CPregunta(imagen);
+        String id = pregunta.getIdUnico();
+        this.tfTest.setText(id);
     }
 }

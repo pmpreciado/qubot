@@ -227,6 +227,22 @@ public class Pantallas {
     }
     
     
+    /**
+     * Comprueba si la pantalla es la de juega ya.
+     * 
+     * @param imagen                            Imagen de la pantalla
+     * 
+     * @return                                  'true' si lo es
+     *                                          'false' si no lo es
+     */
+    private static boolean esPantallaJuegaYa(BufferedImage imagen) {
+        VerificacionRegiones puntos = new VerificacionRegiones();
+        boolean valido_juega_ya = puntos.pc_juega_ya.validar(imagen);
+        return valido_juega_ya;
+    }
+    
+    
+    
     
     /**
      * Trata de identificar el tipo de pantalla suministrada en la imagen,
@@ -270,6 +286,11 @@ public class Pantallas {
         boolean es_jugar = esPantallaJugar(imagen);
         if (es_jugar) {
             return TIPO_PANT_JUGAR;
+        }
+        
+        boolean es_juega_ya = esPantallaJuegaYa(imagen);
+        if (es_juega_ya) {
+            return TIPO_PANT_JUEGA_YA;
         }
         
         return TIPO_PANT_DESCONOCIDA;

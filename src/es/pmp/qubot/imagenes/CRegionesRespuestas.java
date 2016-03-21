@@ -6,8 +6,6 @@
 
 package es.pmp.qubot.imagenes;
 
-import java.awt.image.BufferedImage;
-
 /**
  * Funciones relacionadas con las regiones de las respuestas.
  * 

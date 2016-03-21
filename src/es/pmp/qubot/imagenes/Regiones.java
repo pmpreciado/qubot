@@ -41,13 +41,21 @@ public class Regiones {
                     64
             );
 
+        /** Imagen del enunciado en la pregunta larga */
+            public static final CRectangulo PPREG_RECT_IMAGEN_ENUNCIADO_LARGA = new CRectangulo(
+                    7,
+                    34,
+                    92.7,
+                    66
+            );
+            
             
         
         /** Respuestas en preguntas normales */
             public static final CRectangulo PPREG_RECT_RESP_NORMAL_1 = new CRectangulo(
-                    7, 
+                    9.4, 
                     43.2, 
-                    92.7, 
+                    90.4, 
                     52.95
             );
 
@@ -85,12 +93,12 @@ public class Regiones {
             public static final CRectangulo PPREG_RECT_RESP_LARGA_1 = new CRectangulo(
                     PPREG_RECT_RESP_NORMAL_1.x0, 
                     PPREG_RECT_RESP_NORMAL_3.y0, 
-                    47.6, 
+                    45.2, 
                     PPREG_RECT_RESP_NORMAL_3.y1
             );
 
             public static final CRectangulo PPREG_RECT_RESP_LARGA_2 = new CRectangulo(
-                    52.2, 
+                    54.8, 
                     PPREG_RECT_RESP_LARGA_1.y0, 
                     PPREG_RECT_RESP_NORMAL_1.x1, 
                     PPREG_RECT_RESP_LARGA_1.y1
@@ -203,7 +211,30 @@ public class Regiones {
                         20,
                         60
                 );
-            
+                
+                
+        /** Pantalla juega ya */
+                
+            /** Botón juega ya */
+                public static final CRectangulo PJYA_RECT_BOTON_JUEGA_YA = new CRectangulo(
+                        36.5,
+                        33.8,
+                        63,
+                        37.8
+                );
+                
+            /** Puntos en rojo sobre el botón */
+                public static final CPunto PJYA_PUNTO_ROJO_BOTON_0 = new CPunto(
+                        39.2,
+                        35.2
+                );
+                public static final CPunto PJYA_PUNTO_ROJO_BOTON_1 = new CPunto(
+                        39.2,
+                        36.6
+                );
+                
+                
+                
                 
     /**
      * Muestra en la salida estándar el color de un pixel dado por sus coordenadas relativas (%).
@@ -289,10 +320,8 @@ public class Regiones {
         }
         
         // Huecos entre preguntas largas
-        for (int i = 0; i < VerificacionRegiones.ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS.length; i++) {
-            CPunto punto = VerificacionRegiones.ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS[i];
-            Imagenes.dibujarPuntoGrueso(imagen, punto, Color.RED);
-        }
+        CLineaVertical linea_vertical = PPREG_LVERT_CENTRAL;
+        Imagenes.dibujarLinea(imagen, linea_vertical, Color.RED);
     }
     
     
@@ -322,8 +351,22 @@ public class Regiones {
         Imagenes.dibujarRectangulo(imagen, PJUG_RECT_JUGAR_BOTON_3, Color.RED);
         Imagenes.dibujarRectangulo(imagen, PJUG_RECT_JUGAR_BOTON_4, Color.RED);
 
-        Imagenes.dibujarLinea(imagen, Regiones.PJUG_LVERT_IZQUIERDA, Color.yellow);
-        Imagenes.dibujarLinea(imagen, Regiones.PJUG_LVERT_DERECHA, Color.yellow);
+        Imagenes.dibujarLinea(imagen, Regiones.PJUG_LVERT_IZQUIERDA, Color.YELLOW);
+        Imagenes.dibujarLinea(imagen, Regiones.PJUG_LVERT_DERECHA, Color.YELLOW);
+    }
+    
+    
+    /**
+     * Traza las regiones definidas sobre una imagen dada de la pantalla de juega ya.
+     * 
+     * @param imagen                            Imagen con la pantalla
+     */
+    public static void trazarRegionesJuegaYa(BufferedImage imagen) {
+
+        Imagenes.dibujarRectangulo(imagen, PJYA_RECT_BOTON_JUEGA_YA, Color.CYAN);
+        Imagenes.dibujarPuntoGrueso(imagen, PJYA_PUNTO_ROJO_BOTON_0, Color.CYAN);
+        Imagenes.dibujarPuntoGrueso(imagen, PJYA_PUNTO_ROJO_BOTON_1, Color.CYAN);
+        
     }
     
     

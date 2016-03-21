@@ -16,27 +16,13 @@ import java.awt.image.BufferedImage;
  */
 public class VerificacionRegiones {
 
-    /** Puntos destacados */
-
-        /** Puntos pertenecientes a huecos entre las respuestas a izquierda y derecha en preguntas largas */
-        public static final CPunto PT_HUECO_ENTRE_PREGUNTAS_LARGAS_1 = new CPunto(50, 70);
-        public static final CPunto PT_HUECO_ENTRE_PREGUNTAS_LARGAS_2 = new CPunto(50, 76);
-        public static final CPunto PT_HUECO_ENTRE_PREGUNTAS_LARGAS_3 = new CPunto(50, 82);
-        public static final CPunto PT_HUECO_ENTRE_PREGUNTAS_LARGAS_4 = new CPunto(50, 88);
-
-        public static final CPunto ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS [] = {
-            PT_HUECO_ENTRE_PREGUNTAS_LARGAS_1,
-            PT_HUECO_ENTRE_PREGUNTAS_LARGAS_2,
-            PT_HUECO_ENTRE_PREGUNTAS_LARGAS_3,
-            PT_HUECO_ENTRE_PREGUNTAS_LARGAS_4
-        };
-
 
     /** Validaciones de colores de puntos de las pantallas */
     CPuntosColor pc_pregunta_larga_huecos;
     CPuntosColor pc_revancha_3_op;
     CPuntosColor pc_revancha_2_op;
     CPuntosColor pc_jugar;
+    CPuntosColor pc_juega_ya;
     
     
     /**
@@ -73,6 +59,10 @@ public class VerificacionRegiones {
         pc_jugar.addPuntosVerticales(Regiones.PJUG_LVERT_IZQUIERDA, Colores.COLOR_NEGRO_FONDO_JUGAR);
         pc_jugar.addPuntosVerticales(Regiones.PJUG_LVERT_DERECHA, Colores.COLOR_NEGRO_FONDO_JUGAR);
         
+        pc_juega_ya = new CPuntosColor();
+        pc_juega_ya.addPuntosRectangulares(Regiones.PJYA_RECT_BOTON_JUEGA_YA, Colores.COLOR_BLANCO_FONDO_PREGUNTA);
+        pc_juega_ya.addPunto(Regiones.PJYA_PUNTO_ROJO_BOTON_0, Colores.COLOR_SALMON_TEXTO_BOTON_JUGAR);
+        pc_juega_ya.addPunto(Regiones.PJYA_PUNTO_ROJO_BOTON_1, Colores.COLOR_SALMON_TEXTO_BOTON_JUGAR);
     }
     
 
