@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
@@ -188,12 +189,19 @@ public class Imagenes {
      * 
      * @return                                  Imagen cargada
      * 
-     * @throws java.io.IOException              Error al guardar el fichero
+     * @throws Exception                        Error al cargar el fichero
      */
-    public static BufferedImage cargarImagenPng(String ruta_fichero) throws IOException {
-
+    public static BufferedImage cargarImagenPng(String ruta_fichero) throws Exception {
+        BufferedImage image;
         File fichero_entrada = new File(ruta_fichero);
-        BufferedImage image = ImageIO.read(fichero_entrada);
+        try {
+            image = ImageIO.read(fichero_entrada);
+            
+        } catch (IOException ioex) {
+            String mensaje = "No se puede cargar el fichero " + fichero_entrada.getAbsolutePath();
+            throw new Exception(mensaje, ioex);
+        }
+        
         return image;
     }
     
@@ -293,9 +301,64 @@ public class Imagenes {
     }
     
     
+    /**
+     * Dibuja una línea vertical sobre la imagen dada.
+     * La línea se suministra con coordenadas relativas.
+     * 
+     * @param imagen                            Imagen
+     * @param linea_vertical                    Línea vertical
+     * @param color                             Color
+     */
+    public static void dibujarLinea(BufferedImage imagen, CLineaVertical linea_vertical, Color color) {
+
+        int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+
+        int x = CPunto.getCoordAbs(linea_vertical.x, ancho);
+        int y0 = CPunto.getCoordAbs(linea_vertical.y0, alto);
+        int y1 = CPunto.getCoordAbs(linea_vertical.y1, alto);
+        
+        Line2D linea_2d = new Line2D.Double(x, y0, x, y1);
+        
+        Graphics2D g2d = imagen.createGraphics();
+        g2d.setColor(color);
+        BasicStroke bs = new BasicStroke(3);
+        g2d.setStroke(bs);
+        
+        g2d.draw(linea_2d);
+    }
+    
     
     /**
-     * Dibuja el rectángulo sobre la imagen dada.
+     * Dibuja una línea horizontal sobre la imagen dada.
+     * La línea se suministra con coordenadas relativas.
+     * 
+     * @param imagen                            Imagen
+     * @param linea_horizontal                    Línea vertical
+     * @param color                             Color
+     */
+    public static void dibujarLinea(BufferedImage imagen, CLineaHorizontal linea_horizontal, Color color) {
+
+        int ancho = imagen.getWidth();
+        int alto = imagen.getHeight();
+
+        int x0 = CPunto.getCoordAbs(linea_horizontal.x0, ancho);
+        int x1 = CPunto.getCoordAbs(linea_horizontal.x1, ancho);
+        int y = CPunto.getCoordAbs(linea_horizontal.y, alto);
+        
+        Line2D linea_2d = new Line2D.Double(x0, y, x1, y);
+        
+        Graphics2D g2d = imagen.createGraphics();
+        g2d.setColor(color);
+        BasicStroke bs = new BasicStroke(3);
+        g2d.setStroke(bs);
+        
+        g2d.draw(linea_2d);
+    }
+    
+    
+    /**
+     * Dibuja un rectángulo sobre la imagen dada.
      * El rectángulo se suministra con coordenadas relativas.
      * 
      * @param imagen                            Imagen
@@ -311,17 +374,17 @@ public class Imagenes {
         int y0 = CPunto.getCoordAbs(rectangulo.y0, alto);
         int x1 = CPunto.getCoordAbs(rectangulo.x1, ancho);
         int y1 = CPunto.getCoordAbs(rectangulo.y1, alto);
-        double ancho_rect = x1 - x0;
-        double alto_rect = y1 - y0;
+        double ancho_rect = x1 - x0 + 1;
+        double alto_rect = y1 - y0 + 1;
         
-        Rectangle2D r2d = new Rectangle2D.Double(x0, y0, ancho_rect, alto_rect);
+        Rectangle2D rectangulo_2d = new Rectangle2D.Double(x0, y0, ancho_rect, alto_rect);
         
         Graphics2D g2d = imagen.createGraphics();
         g2d.setColor(color);
         BasicStroke bs = new BasicStroke(3);
         g2d.setStroke(bs);
         
-        g2d.draw(r2d);
+        g2d.draw(rectangulo_2d);
     }
     
 

@@ -16,17 +16,16 @@ import java.awt.image.BufferedImage;
  */
 public class Regiones {
 
-    
 
+    /** Las coordenadas se deben especificar en % (0 a 100) */
     
     
-
-    /** Coordenadas de las regiones y los puntos (en %) */
+    /** Pantalla de preguntas y respuestas */
   
-        public static final double SEP_PREGUNTA_VERTICAL = 12.5;
+        public static final double PPREG_SEP_VERT_RESPUESTAS = 12.5;
     
         /** Enunciado de la pregunta normal */
-            public static final CRectangulo RECT_ENUNCIADO_NORMAL = new CRectangulo(
+            public static final CRectangulo PPREG_RECT_ENUNCIADO_NORMAL = new CRectangulo(
                     7,
                     14,
                     92.7,
@@ -35,7 +34,7 @@ public class Regiones {
         
         
         /** Enunciado de la pregunta larga */
-            public static final CRectangulo RECT_ENUNCIADO_LARGA = new CRectangulo(
+            public static final CRectangulo PPREG_RECT_ENUNCIADO_LARGA = new CRectangulo(
                     7,
                     14,
                     92.7,
@@ -45,111 +44,167 @@ public class Regiones {
             
         
         /** Respuestas en preguntas normales */
-            public static final CRectangulo RECT_RESP_NORMAL_1 = new CRectangulo(
+            public static final CRectangulo PPREG_RECT_RESP_NORMAL_1 = new CRectangulo(
                     7, 
                     43.2, 
                     92.7, 
                     52.95
             );
 
-            public static final CRectangulo RECT_RESP_NORMAL_2 = new CRectangulo(
-                    RECT_RESP_NORMAL_1.x0, 
-                    RECT_RESP_NORMAL_1.y0 + SEP_PREGUNTA_VERTICAL, 
-                    RECT_RESP_NORMAL_1.x1, 
-                    RECT_RESP_NORMAL_1.y1 + SEP_PREGUNTA_VERTICAL
+            public static final CRectangulo PPREG_RECT_RESP_NORMAL_2 = new CRectangulo(
+                    PPREG_RECT_RESP_NORMAL_1.x0, 
+                    PPREG_RECT_RESP_NORMAL_1.y0 + PPREG_SEP_VERT_RESPUESTAS, 
+                    PPREG_RECT_RESP_NORMAL_1.x1, 
+                    PPREG_RECT_RESP_NORMAL_1.y1 + PPREG_SEP_VERT_RESPUESTAS
             );
 
-            public static final CRectangulo RECT_RESP_NORMAL_3 = new CRectangulo(
-                    RECT_RESP_NORMAL_2.x0, 
-                    RECT_RESP_NORMAL_2.y0 + SEP_PREGUNTA_VERTICAL, 
-                    RECT_RESP_NORMAL_2.x1, 
-                    RECT_RESP_NORMAL_2.y1 + SEP_PREGUNTA_VERTICAL
+            public static final CRectangulo PPREG_RECT_RESP_NORMAL_3 = new CRectangulo(
+                    PPREG_RECT_RESP_NORMAL_2.x0, 
+                    PPREG_RECT_RESP_NORMAL_2.y0 + PPREG_SEP_VERT_RESPUESTAS, 
+                    PPREG_RECT_RESP_NORMAL_2.x1, 
+                    PPREG_RECT_RESP_NORMAL_2.y1 + PPREG_SEP_VERT_RESPUESTAS
             );
 
-            public static final CRectangulo RECT_RESP_NORMAL_4 = new CRectangulo(
-                    RECT_RESP_NORMAL_3.x0, 
-                    RECT_RESP_NORMAL_3.y0 + SEP_PREGUNTA_VERTICAL, 
-                    RECT_RESP_NORMAL_3.x1, 
-                    RECT_RESP_NORMAL_3.y1 + SEP_PREGUNTA_VERTICAL
+            public static final CRectangulo PPREG_RECT_RESP_NORMAL_4 = new CRectangulo(
+                    PPREG_RECT_RESP_NORMAL_3.x0, 
+                    PPREG_RECT_RESP_NORMAL_3.y0 + PPREG_SEP_VERT_RESPUESTAS, 
+                    PPREG_RECT_RESP_NORMAL_3.x1, 
+                    PPREG_RECT_RESP_NORMAL_3.y1 + PPREG_SEP_VERT_RESPUESTAS
             );
 
-            public static final CRectangulo ARR_RECT_RESP_NORMAL [] = 
+            public static final CRectangulo[] ARR_PPREG_RECT_RESP_NORMAL = 
             {
-                RECT_RESP_NORMAL_1,
-                RECT_RESP_NORMAL_2,
-                RECT_RESP_NORMAL_3,
-                RECT_RESP_NORMAL_4
+                PPREG_RECT_RESP_NORMAL_1,
+                PPREG_RECT_RESP_NORMAL_2,
+                PPREG_RECT_RESP_NORMAL_3,
+                PPREG_RECT_RESP_NORMAL_4
             };
     
     
         /** Respuestas en preguntas largas */
-            public static final CRectangulo RECT_RESP_LARGA_1 = new CRectangulo(
-                    RECT_RESP_NORMAL_1.x0, 
-                    RECT_RESP_NORMAL_3.y0, 
+            public static final CRectangulo PPREG_RECT_RESP_LARGA_1 = new CRectangulo(
+                    PPREG_RECT_RESP_NORMAL_1.x0, 
+                    PPREG_RECT_RESP_NORMAL_3.y0, 
                     47.6, 
-                    RECT_RESP_NORMAL_3.y1
+                    PPREG_RECT_RESP_NORMAL_3.y1
             );
 
-            public static final CRectangulo RECT_RESP_LARGA_2 = new CRectangulo(
+            public static final CRectangulo PPREG_RECT_RESP_LARGA_2 = new CRectangulo(
                     52.2, 
-                    RECT_RESP_LARGA_1.y0, 
-                    RECT_RESP_NORMAL_1.x1, 
-                    RECT_RESP_LARGA_1.y1
+                    PPREG_RECT_RESP_LARGA_1.y0, 
+                    PPREG_RECT_RESP_NORMAL_1.x1, 
+                    PPREG_RECT_RESP_LARGA_1.y1
             );
 
-            public static final CRectangulo RECT_RESP_LARGA_3 = new CRectangulo(
-                    RECT_RESP_LARGA_1.x0, 
-                    RECT_RESP_LARGA_1.y0 + SEP_PREGUNTA_VERTICAL, 
-                    RECT_RESP_LARGA_1.x1, 
-                    RECT_RESP_LARGA_1.y1 + SEP_PREGUNTA_VERTICAL
+            public static final CRectangulo PPREG_RECT_RESP_LARGA_3 = new CRectangulo(
+                    PPREG_RECT_RESP_LARGA_1.x0, 
+                    PPREG_RECT_RESP_LARGA_1.y0 + PPREG_SEP_VERT_RESPUESTAS, 
+                    PPREG_RECT_RESP_LARGA_1.x1, 
+                    PPREG_RECT_RESP_LARGA_1.y1 + PPREG_SEP_VERT_RESPUESTAS
             );
 
-            public static final CRectangulo RECT_RESP_LARGA_4 = new CRectangulo(
-                    RECT_RESP_LARGA_2.x0, 
-                    RECT_RESP_LARGA_2.y0 + SEP_PREGUNTA_VERTICAL, 
-                    RECT_RESP_LARGA_2.x1, 
-                    RECT_RESP_LARGA_2.y1 + SEP_PREGUNTA_VERTICAL
+            public static final CRectangulo PPREG_RECT_RESP_LARGA_4 = new CRectangulo(
+                    PPREG_RECT_RESP_LARGA_2.x0, 
+                    PPREG_RECT_RESP_LARGA_2.y0 + PPREG_SEP_VERT_RESPUESTAS, 
+                    PPREG_RECT_RESP_LARGA_2.x1, 
+                    PPREG_RECT_RESP_LARGA_2.y1 + PPREG_SEP_VERT_RESPUESTAS
             );
 
-            public static final CRectangulo ARR_RECT_RESP_LARGA [] = 
+            public static final CRectangulo[] ARR_PPREG_RECT_RESP_LARGA = 
             {
-                RECT_RESP_LARGA_1,
-                RECT_RESP_LARGA_2,
-                RECT_RESP_LARGA_3,
-                RECT_RESP_LARGA_4
+                PPREG_RECT_RESP_LARGA_1,
+                PPREG_RECT_RESP_LARGA_2,
+                PPREG_RECT_RESP_LARGA_3,
+                PPREG_RECT_RESP_LARGA_4
             };
         
-        
+            /** Línea vertical en negro */
+                public static final CLineaVertical PPREG_LVERT_CENTRAL = new CLineaVertical(
+                        50,
+                        70,
+                        88
+                );
+                
+            
+            
         /** Pantalla de revancha */
         
-            public static final double SEP_BOTONES_REVANCHA = 12.4;
+            public static final double PREV_SEP_VERT_BOTONES = 12.4;
             
-            /** Recuadro con el botón Revancha */
-                public static final CRectangulo RECT_REVANCHA = new CRectangulo(
+            /** Primer botón disponible en la pantalla de revancha */
+                public static final CRectangulo PREV_RECT_REVANCHA_BOTON_1 = new CRectangulo(
                         23, 
                         58, 
                         77, 
                         65
                 );
             
-            /** Recuadro con el botón Otro adversario */
-                public static final CRectangulo RECT_OTRO_ADVERSARIO = new CRectangulo(
-                        RECT_REVANCHA.x0, 
-                        RECT_REVANCHA.y0 + SEP_BOTONES_REVANCHA, 
-                        RECT_REVANCHA.x1, 
-                        RECT_REVANCHA.y1 + SEP_BOTONES_REVANCHA
+            /** Segundo botón disponible en la pantalla de revancha */
+                public static final CRectangulo PREV_RECT_REVANCHA_BOTON_2 = new CRectangulo(
+                        PREV_RECT_REVANCHA_BOTON_1.x0, 
+                        PREV_RECT_REVANCHA_BOTON_1.y0 + PREV_SEP_VERT_BOTONES, 
+                        PREV_RECT_REVANCHA_BOTON_1.x1, 
+                        PREV_RECT_REVANCHA_BOTON_1.y1 + PREV_SEP_VERT_BOTONES
                 );
 
-            /** Recuadro con el botón Ver resultados */
-                public static final CRectangulo RECT_VER_RESULTADOS = new CRectangulo(
-                        RECT_OTRO_ADVERSARIO.x0, 
-                        RECT_OTRO_ADVERSARIO.y0 + SEP_BOTONES_REVANCHA, 
-                        RECT_OTRO_ADVERSARIO.x1, 
-                        RECT_OTRO_ADVERSARIO.y1 + SEP_BOTONES_REVANCHA
+            /** Tercer botón disponible en la pantalla de revancha */
+                public static final CRectangulo PREV_RECT_REVANCHA_BOTON_3 = new CRectangulo(
+                        PREV_RECT_REVANCHA_BOTON_2.x0, 
+                        PREV_RECT_REVANCHA_BOTON_2.y0 + PREV_SEP_VERT_BOTONES, 
+                        PREV_RECT_REVANCHA_BOTON_2.x1, 
+                        PREV_RECT_REVANCHA_BOTON_2.y1 + PREV_SEP_VERT_BOTONES
                 );
                 
+        /** Pantalla jugar */
                 
+             public static final double PJUG_SEP_VERT_BOTONES = 7.6;
+                
+            /** Primer botón disponible en la pantalla de jugar */
+                public static final CRectangulo PJUG_RECT_JUGAR_BOTON_1 = new CRectangulo(
+                        53.3,
+                        28,
+                        85,
+                        32.6
+                );
+                
+            /** Segundo botón disponible en la pantalla de jugar */
+                public static final CRectangulo PJUG_RECT_JUGAR_BOTON_2 = new CRectangulo(
+                        PJUG_RECT_JUGAR_BOTON_1.x0,
+                        PJUG_RECT_JUGAR_BOTON_1.y0 + PJUG_SEP_VERT_BOTONES,
+                        PJUG_RECT_JUGAR_BOTON_1.x1,
+                        PJUG_RECT_JUGAR_BOTON_1.y1 + PJUG_SEP_VERT_BOTONES
+                );                
     
+            /** Tercer botón disponible en la pantalla de jugar */
+                public static final CRectangulo PJUG_RECT_JUGAR_BOTON_3 = new CRectangulo(
+                        PJUG_RECT_JUGAR_BOTON_2.x0,
+                        PJUG_RECT_JUGAR_BOTON_2.y0 + PJUG_SEP_VERT_BOTONES,
+                        PJUG_RECT_JUGAR_BOTON_2.x1,
+                        PJUG_RECT_JUGAR_BOTON_2.y1 + PJUG_SEP_VERT_BOTONES
+                );                    
+                
+            /** Cuarto botón disponible en la pantalla de jugar */
+                public static final CRectangulo PJUG_RECT_JUGAR_BOTON_4 = new CRectangulo(
+                        PJUG_RECT_JUGAR_BOTON_3.x0,
+                        PJUG_RECT_JUGAR_BOTON_3.y0 + PJUG_SEP_VERT_BOTONES,
+                        PJUG_RECT_JUGAR_BOTON_3.x1,
+                        PJUG_RECT_JUGAR_BOTON_3.y1 + PJUG_SEP_VERT_BOTONES
+                );                
+                
+            /** Línea vertical en negro */
+                public static final CLineaVertical PJUG_LVERT_IZQUIERDA = new CLineaVertical(
+                        8,
+                        20,
+                        60
+                );
+                
+                public static final CLineaVertical PJUG_LVERT_DERECHA = new CLineaVertical(
+                        92,
+                        20,
+                        60
+                );
+            
+                
     /**
      * Muestra en la salida estándar el color de un pixel dado por sus coordenadas relativas (%).
      * 
@@ -218,24 +273,24 @@ public class Regiones {
     public static void trazarRegionesPregunta(BufferedImage imagen) {
 
         // Enunciados
-        Imagenes.dibujarRectangulo(imagen, RECT_ENUNCIADO_NORMAL, Color.YELLOW);
-        Imagenes.dibujarRectangulo(imagen, RECT_ENUNCIADO_LARGA, Color.YELLOW);
+        Imagenes.dibujarRectangulo(imagen, PPREG_RECT_ENUNCIADO_NORMAL, Color.YELLOW);
+        Imagenes.dibujarRectangulo(imagen, PPREG_RECT_ENUNCIADO_LARGA, Color.YELLOW);
         
         // Recuadros preguntas normales
-        for (int i = 0; i < ARR_RECT_RESP_NORMAL.length; i++) {
-            CRectangulo rectangulo = ARR_RECT_RESP_NORMAL[i];
+        for (int i = 0; i < ARR_PPREG_RECT_RESP_NORMAL.length; i++) {
+            CRectangulo rectangulo = ARR_PPREG_RECT_RESP_NORMAL[i];
             Imagenes.dibujarRectangulo(imagen, rectangulo, Color.RED);
         }
         
         // Recuadros preguntas largas
-        for (int i = 0; i < ARR_RECT_RESP_LARGA.length; i++) {
-            CRectangulo rectangulo = ARR_RECT_RESP_LARGA[i];
+        for (int i = 0; i < ARR_PPREG_RECT_RESP_LARGA.length; i++) {
+            CRectangulo rectangulo = ARR_PPREG_RECT_RESP_LARGA[i];
             Imagenes.dibujarRectangulo(imagen, rectangulo, Color.GREEN);
         }
         
         // Huecos entre preguntas largas
-        for (int i = 0; i < Puntos.ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS.length; i++) {
-            CPunto punto = Puntos.ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS[i];
+        for (int i = 0; i < VerificacionRegiones.ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS.length; i++) {
+            CPunto punto = VerificacionRegiones.ARR_PT_HUECOS_ENTRE_PREGUNTAS_LARGAS[i];
             Imagenes.dibujarPuntoGrueso(imagen, punto, Color.RED);
         }
     }
@@ -249,13 +304,29 @@ public class Regiones {
      */
     public static void trazarRegionesRevancha(BufferedImage imagen) {
 
-        // Enunciados
-        Imagenes.dibujarRectangulo(imagen, RECT_REVANCHA, Color.CYAN);
-        Imagenes.dibujarRectangulo(imagen, RECT_OTRO_ADVERSARIO, Color.RED);        
-        Imagenes.dibujarRectangulo(imagen, RECT_VER_RESULTADOS, Color.YELLOW);        
+        Imagenes.dibujarRectangulo(imagen, PREV_RECT_REVANCHA_BOTON_1, Color.CYAN);
+        Imagenes.dibujarRectangulo(imagen, PREV_RECT_REVANCHA_BOTON_2, Color.RED);        
+        Imagenes.dibujarRectangulo(imagen, PREV_RECT_REVANCHA_BOTON_3, Color.YELLOW);        
     }
     
 
+    /**
+     * Traza las regiones definidas sobre una imagen dada de la pantalla de jugar.
+     * 
+     * @param imagen                            Imagen con la pantalla
+     */
+    public static void trazarRegionesJugar(BufferedImage imagen) {
+
+        Imagenes.dibujarRectangulo(imagen, PJUG_RECT_JUGAR_BOTON_1, Color.RED);
+        Imagenes.dibujarRectangulo(imagen, PJUG_RECT_JUGAR_BOTON_2, Color.RED);
+        Imagenes.dibujarRectangulo(imagen, PJUG_RECT_JUGAR_BOTON_3, Color.RED);
+        Imagenes.dibujarRectangulo(imagen, PJUG_RECT_JUGAR_BOTON_4, Color.RED);
+
+        Imagenes.dibujarLinea(imagen, Regiones.PJUG_LVERT_IZQUIERDA, Color.yellow);
+        Imagenes.dibujarLinea(imagen, Regiones.PJUG_LVERT_DERECHA, Color.yellow);
+    }
+    
+    
     
 
     /**
@@ -272,7 +343,7 @@ public class Regiones {
         Color color_general = null;
         
         for (CPunto punto : arr_puntos) {
-            Color color_punto = Puntos.getColorPunto(imagen, punto);
+            Color color_punto = VerificacionRegiones.getColorPunto(imagen, punto);
             
             if (color_general == null) {
                 color_general = color_punto;
@@ -311,7 +382,7 @@ public class Regiones {
      */
     public static int getTipoRegionRespuestaNormal(BufferedImage imagen, int indice) {
         
-        CRectangulo rect = ARR_RECT_RESP_NORMAL[indice];
+        CRectangulo rect = ARR_PPREG_RECT_RESP_NORMAL[indice];
         CPunto [] arr_puntos = rect.getEsquinas();
         int tipo_respuesta = getTipoRegionRespuesta(imagen, arr_puntos);
         return tipo_respuesta;
@@ -329,7 +400,7 @@ public class Regiones {
      */
     public static int getTipoRegionRespuestaLarga(BufferedImage imagen, int indice) {
         
-        CRectangulo rect = ARR_RECT_RESP_LARGA[indice];
+        CRectangulo rect = ARR_PPREG_RECT_RESP_LARGA[indice];
         CPunto [] arr_puntos = rect.getEsquinas();
         int tipo_respuesta = getTipoRegionRespuesta(imagen, arr_puntos);
         return tipo_respuesta;

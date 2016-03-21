@@ -579,8 +579,6 @@ public class QubotView extends FrameView {
             return;
         }
         
-        Regiones.mostrarColorPixelesColumna(img, 7);
-        
         BufferedImage img_escala = Imagenes.escalarImagenStd(img);
         ImageIcon icon = new ImageIcon(img_escala);
         this.lblCapturaVysor.setIcon(icon);
@@ -631,16 +629,18 @@ public class QubotView extends FrameView {
     private void cargarFicheroImagen() {
         String nombre_fichero = tfNombreFichero.getText();
         String ruta_fichero = Comun.RUTA_CAPTURAS + nombre_fichero;
-        BufferedImage imagen = null;
         
         try {
             imagen_en_pantalla = Imagenes.cargarImagenPng(ruta_fichero);
-            if (imagen_en_pantalla != null) {
-                mostrarImagenEnForm(imagen_en_pantalla);
-            }
-                    
-        } catch (IOException ex) {
+        } catch (Exception ex) {
+            String titulo = "Error";
+            String mensaje = ex.getMessage();
+            JOptionPane.showMessageDialog(this.getFrame(), mensaje, titulo, JOptionPane.WARNING_MESSAGE);
             Logger.getLogger(QubotView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (imagen_en_pantalla != null) {
+            mostrarImagenEnForm(imagen_en_pantalla);
         }
     }
     
@@ -651,8 +651,9 @@ public class QubotView extends FrameView {
     private void trazarRegiones() {
         if (imagen_en_pantalla != null) {
             BufferedImage imagen_regiones = Imagenes.duplicarImagen(imagen_en_pantalla);
-            Regiones.trazarRegionesPregunta(imagen_regiones);
-            Regiones.trazarRegionesRevancha(imagen_regiones);
+            //Regiones.trazarRegionesPregunta(imagen_regiones);
+            //Regiones.trazarRegionesRevancha(imagen_regiones);
+            Regiones.trazarRegionesJugar(imagen_regiones);
             mostrarImagenEnForm(imagen_regiones);
         }
     }

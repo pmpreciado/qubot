@@ -16,7 +16,7 @@ import java.awt.Color;
 public class Colores {
     
     /** Colores */
-    public static final Color COLOR_NEGRO_FONDO                = hex2Color("010001");
+    public static final Color COLOR_NEGRO_FONDO_PREGUNTAS       = hex2Color("010001");
     public static final Color COLOR_BLANCO_FONDO_PREGUNTA      = hex2Color("ffffff");
     public static final Color COLOR_VERDE_ACIERTO              = hex2Color("037c46");
     public static final Color COLOR_ROJO_FALLO                 = hex2Color("9a3234");
@@ -25,6 +25,7 @@ public class Colores {
     public static final Color COLOR_ROJO_OTRO_ADVERSARIO       = hex2Color("ff5557");
     public static final Color COLOR_CIAN_VER_RESULTADOS        = hex2Color("02b5db");
     
+    public static final Color COLOR_NEGRO_FONDO_JUGAR          = hex2Color("242224");
     
     public static final Color COLOR_AZUL_MARCO_VYSOR           = hex2Color("468FCC");
 

@@ -6,7 +6,6 @@
 
 package es.pmp.qubot.imagenes;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 /**
@@ -24,7 +23,8 @@ public class Pantallas {
     public static final int TIPO_PANT_PREGUNTA_LARGA_RESPONDIDA                 = 4;
     public static final int TIPO_PANT_REVANCHA_TRES_OPCIONES                    = 5;
     public static final int TIPO_PANT_REVANCHA_DOS_OPCIONES                     = 6;
-    
+    public static final int TIPO_PANT_JUGAR                                     = 7;
+    public static final int TIPO_PANT_JUEGA_YA                                  = 8;
 
     /**
      * Obtiene la descripción del tipo de pantalla.
@@ -42,9 +42,11 @@ public class Pantallas {
             case TIPO_PANT_PREGUNTA_LARGA_RESPONDIDA:       return "Pregunta larga respondida";
             case TIPO_PANT_REVANCHA_TRES_OPCIONES:          return "Revancha (tres opciones)";
             case TIPO_PANT_REVANCHA_DOS_OPCIONES:           return "Revancha (dos opciones)";
+            case TIPO_PANT_JUGAR:                           return "Jugar";
+            case TIPO_PANT_JUEGA_YA:                        return "Juega ya";
         }
         
-        return "Desconocida";
+        return Integer.toString(tipo);
     }
     
     
@@ -117,7 +119,7 @@ public class Pantallas {
      *                                          'false' si no lo es
      */
     private static boolean esPantallaPreguntaLarga(BufferedImage imagen) {
-        Puntos puntos = new Puntos();
+        VerificacionRegiones puntos = new VerificacionRegiones();
         boolean valido_pregunta_larga = puntos.pc_pregunta_larga_huecos.validar(imagen);
         
         if (valido_pregunta_larga) {
@@ -140,7 +142,7 @@ public class Pantallas {
      *                                          'false' si no lo es
      */
     private static boolean esPantallaPreguntaLargaSinResponder(BufferedImage imagen) {
-        Puntos puntos = new Puntos();
+        VerificacionRegiones puntos = new VerificacionRegiones();
         boolean valido_pregunta_larga = puntos.pc_pregunta_larga_huecos.validar(imagen);
         
         if (valido_pregunta_larga) {
@@ -165,7 +167,7 @@ public class Pantallas {
      *                                          'false' si no lo es
      */
     private static boolean esPantallaPreguntaLargaRespondida(BufferedImage imagen) {
-        Puntos puntos = new Puntos();
+        VerificacionRegiones puntos = new VerificacionRegiones();
         boolean valido_pregunta_larga = puntos.pc_pregunta_larga_huecos.validar(imagen);
         
         if (valido_pregunta_larga) {
@@ -189,7 +191,7 @@ public class Pantallas {
      *                                          'false' si no lo es
      */
     private static boolean esPantallaRevanchaTresOpciones(BufferedImage imagen) {
-        Puntos puntos = new Puntos();
+        VerificacionRegiones puntos = new VerificacionRegiones();
         boolean valido_revancha_3_op = puntos.pc_revancha_3_op.validar(imagen);
         return valido_revancha_3_op;
     }
@@ -204,10 +206,26 @@ public class Pantallas {
      *                                          'false' si no lo es
      */
     private static boolean esPantallaRevanchaDosOpciones(BufferedImage imagen) {
-        Puntos puntos = new Puntos();
+        VerificacionRegiones puntos = new VerificacionRegiones();
         boolean valido_revancha_2_op = puntos.pc_revancha_2_op.validar(imagen);
         return valido_revancha_2_op;
     }
+    
+    
+    /**
+     * Comprueba si la pantalla es la de jugar.
+     * 
+     * @param imagen                            Imagen de la pantalla
+     * 
+     * @return                                  'true' si lo es
+     *                                          'false' si no lo es
+     */
+    private static boolean esPantallaJugar(BufferedImage imagen) {
+        VerificacionRegiones puntos = new VerificacionRegiones();
+        boolean valido_jugar = puntos.pc_jugar.validar(imagen);
+        return valido_jugar;
+    }
+    
     
     
     /**
@@ -247,6 +265,11 @@ public class Pantallas {
         boolean es_rev_2_op = esPantallaRevanchaDosOpciones(imagen);
         if (es_rev_2_op) {
             return TIPO_PANT_REVANCHA_DOS_OPCIONES;
+        }
+        
+        boolean es_jugar = esPantallaJugar(imagen);
+        if (es_jugar) {
+            return TIPO_PANT_JUGAR;
         }
         
         return TIPO_PANT_DESCONOCIDA;
