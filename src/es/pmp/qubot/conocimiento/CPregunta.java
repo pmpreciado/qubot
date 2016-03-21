@@ -86,6 +86,16 @@ public class CPregunta {
 
     
     /**
+     * Retorna la imagen asociada.
+     * 
+     * @return                                  Imagen asociada
+     */
+    public BufferedImage getImagen() {
+        return imagen;
+    }
+
+    
+    /**
      * Obtiene los componentes RGB a partir del identificador único.
      * 
      * @param id_unico

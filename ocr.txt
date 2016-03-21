@@ -1,0 +1,1 @@
+http://stackoverflow.com/questions/16300375/how-to-locate-text-on-a-buffered-image

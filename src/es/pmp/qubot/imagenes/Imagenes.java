@@ -9,6 +9,7 @@ package es.pmp.qubot.imagenes;
 import es.pmp.qubot.Comun;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -378,11 +379,25 @@ public class Imagenes {
      * @return                                  Imagen duplicada
      */
     public static BufferedImage duplicarImagen(BufferedImage imagen_original) {
+        
+        BufferedImage b = new BufferedImage(imagen_original.getWidth(), imagen_original.getHeight(), imagen_original.getType());
+        Graphics g = b.getGraphics();
+        g.drawImage(imagen_original, 0, 0, null);
+        g.dispose();
+        return b;
+        
+        
+        /*
         ColorModel cm = imagen_original.getColorModel();
         boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
         WritableRaster raster = imagen_original.copyData(null);
-        BufferedImage imagen_duplicada = new BufferedImage(cm, raster, isAlphaPremultiplied, null);
-        return imagen_duplicada;
+        try {
+            BufferedImage imagen_duplicada = new BufferedImage(cm, raster, isAlphaPremultiplied, null);
+            return imagen_duplicada;
+        } catch (IllegalArgumentException iaex) {
+            System.out.println(iaex);
+            throw iaex;
+        }*/
     }
     
     
@@ -583,6 +598,16 @@ public class Imagenes {
                 int rgb = imagen.getRGB(x, y);
                 boolean es_negro = esNegro(rgb, umbral_negro);
 
+if (rgb != -1) {
+    rgb = rgb;
+}
+                
+if (es_negro) {
+    es_negro = true;
+} else {
+    es_negro = false;
+}
+                
                 if (y < mitad_alto) {
                     if (es_negro) {
                         suma_n_0++;
