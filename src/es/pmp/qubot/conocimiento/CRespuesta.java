@@ -24,7 +24,7 @@ public class CRespuesta {
     public static final int ESTADO_FALLO            = 3;
     
     
-    private static final String SEP = "|";
+    private static final String SEP_ID = "_";
     
     /** Máxima diferencia permitida para que identificadores de preguntas se consideren similares (%) */
     public static final int MAX_DISTANCIA_ID_SIMILARES = 5;
@@ -32,11 +32,21 @@ public class CRespuesta {
     /** Umbral para considerar un píxel negro */
     public static final double UMBRAL_NEGRO = 80;
 
+    /** Umbral para convertir el verde del acierto o el rojo de fallo al color blanco */
     public static final int UMBRAL_CONVERTIR_A_BLANCO = 40;
     
     
+    /** Atributos usados para identificar la respuesta */
+    
+        /** Píxeles blancos y negros */
+        public int suma_blancos;
+        public int suma_negros;
+
+    
+    /** Imagen del enunciado de la respuesta */
     BufferedImage imagen;
     
+    /** Estado de la respuesta (CRespuesta.ESTADO_xxx) */
     int estado;
     
     
@@ -61,11 +71,26 @@ public class CRespuesta {
         Imagenes.reemplazarColor(imagen_blanco, Colores.COLOR_VERDE_ACIERTO, Colores.COLOR_BLANCO_FONDO_PREGUNTA, UMBRAL_CONVERTIR_A_BLANCO);
         Imagenes.reemplazarColor(imagen_blanco, Colores.COLOR_ROJO_FALLO, Colores.COLOR_BLANCO_FONDO_PREGUNTA, UMBRAL_CONVERTIR_A_BLANCO);
         
-        id_unico = generarIdUnico(imagen_blanco, UMBRAL_NEGRO);
+        this.id_unico = generarIdUnico(imagen_blanco, UMBRAL_NEGRO);
+        setAtributosIdentificadores(this.id_unico);
         this.imagen = imagen;
         this.estado = detectarEstadoRespuesta(imagen);
     }
 
+    
+    /**
+     * Genera y establece los identificadores para la pregunta a partir de su imagen.
+     * 
+     * @param id_unico
+     */
+    private void setAtributosIdentificadores(String id_unico) {
+        String [] arr_sp = id_unico.split(SEP_ID);
+        
+        int c = 0;
+        suma_blancos = Integer.parseInt(arr_sp[c++]);
+        suma_negros = Integer.parseInt(arr_sp[c++]);
+    }
+    
     
     /**
      * Genera un identificador único para la pregunta.
@@ -76,10 +101,8 @@ public class CRespuesta {
      * @return                                  Identificador único
      */
     public static String generarIdUnico(BufferedImage imagen, double umbral_negro) {        
-        //int [] bn = Imagenes.getSumaBnDobleVertical(imagen, UMBRAL_NEGRO);
         int [] bn = Imagenes.getSumaBn(imagen, UMBRAL_NEGRO);
-        
-        String id = bn[0] + SEP + bn[1];
+        String id = bn[0] + SEP_ID + bn[1];
         return id;
     }
     
@@ -154,10 +177,31 @@ public class CRespuesta {
     }
     
     
+    /**
+     * Obtiene el estado de la respuesta.
+     * 
+     * @return                                  Estado de la respuesta (CRespuesta.ESTADO_xxx)
+     */
     public int getEstado() {
         return estado;
     }
+
     
+    /**
+     * Establece el estado de la respuesta.
+     * 
+     * @param estado                            Estado de la respuesta (CRespuesta.ESTADO_xxx)
+     */
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    
+    /**
+     * Obtiene la descripción del estado de la respuesta.
+     * 
+     * @return                                  Descripción del estado de la respuesta
+     */
     public String getDescripcionEstado() {
         switch (estado) {
             case ESTADO_SIN_RESPONDER: return "Sin responder";
@@ -169,48 +213,48 @@ public class CRespuesta {
     }
 
     
-    /**
-     * Obtiene la suma de píxeles blancos y negros a partir del identificador único.
-     * 
-     * @param id_unico
-     * 
-     * @return 
-     */
-    public static int [] getBn(String id_unico) {
-        String [] sp = id_unico.split(SEP);
-        int b0 = Integer.parseInt(sp[0]);
-        int n0 = Integer.parseInt(sp[1]);
-        //int b1 = Integer.parseInt(sp[2]);
-        //int n1 = Integer.parseInt(sp[3]);
-        
-        //int [] result = {b0, n0, b1, n1};
-        int [] result = {b0, n0};
-        return result;
-    }
-    
-    
-    
-    /**
-     * Compara dos identificadores únicos de preguntas.
-     * 
-     * @param id_unico_1
-     * @param id_unico_2
-     * @param max_distancia                     Máxima distancia permitida en cada uno de los tres componentes (en %, de 0 a 100)
-     * 
-     * @return                                  'true' si los identificadores se consideran similares
-     *                                          'false' en caso contrario
-     */
-    public static boolean idSimilares(String id_unico_1, String id_unico_2, int max_distancia) {
-        
-        int [] bn_1 = getBn(id_unico_1);
-        int [] bn_2 = getBn(id_unico_2);
-        boolean bn_similares = Comun.similares(bn_1, bn_2, max_distancia);
-        if (!bn_similares) {
-            return false;
-        } 
-
-        return true;
-    }
+//    /**
+//     * Obtiene la suma de píxeles blancos y negros a partir del identificador único.
+//     * 
+//     * @param id_unico
+//     * 
+//     * @return 
+//     */
+//    public static int [] getBn(String id_unico) {
+//        String [] sp = id_unico.split(SEP_ID);
+//        int b0 = Integer.parseInt(sp[0]);
+//        int n0 = Integer.parseInt(sp[1]);
+//        //int b1 = Integer.parseInt(sp[2]);
+//        //int n1 = Integer.parseInt(sp[3]);
+//        
+//        //int [] result = {b0, n0, b1, n1};
+//        int [] result = {b0, n0};
+//        return result;
+//    }
+//    
+//    
+//    
+//    /**
+//     * Compara dos identificadores únicos de preguntas.
+//     * 
+//     * @param id_unico_1
+//     * @param id_unico_2
+//     * @param max_distancia                     Máxima distancia permitida en cada uno de los tres componentes (en %, de 0 a 100)
+//     * 
+//     * @return                                  'true' si los identificadores se consideran similares
+//     *                                          'false' en caso contrario
+//     */
+//    public static boolean idSimilares(String id_unico_1, String id_unico_2, int max_distancia) {
+//        
+//        int [] bn_1 = getBn(id_unico_1);
+//        int [] bn_2 = getBn(id_unico_2);
+//        boolean bn_similares = Comun.similares(bn_1, bn_2, max_distancia);
+//        if (!bn_similares) {
+//            return false;
+//        } 
+//
+//        return true;
+//    }
 
     
     /**

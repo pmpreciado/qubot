@@ -6,7 +6,20 @@
 
 package es.pmp.qubot;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,7 +38,7 @@ public class Comun {
     
     public static final String RUTA_CAPTURAS        = "imagenes/";
     public static final String RUTA_FICHERO_CAPTURAS = RUTA_CAPTURAS + "qubot_image.png";
-    
+    public static final String RUTA_FICHERO_CONOCIMIENTO = "bbdd/conocimiento.txt";
     
     
     
@@ -271,5 +284,36 @@ public class Comun {
         
         return true;
     }
+
     
+    /**
+     * Lee y retorna el contenido de un fichero de texto dado.
+     * 
+     * @param nombre_fichero                Fichero a leer
+     * 
+     * @return                              Líneas leídas del fichero
+     * 
+     * @throws IOException                  Error al leer el fichero
+     */
+    public static List <String> leerFichero(String nombre_fichero) throws IOException {
+        Path path = Paths.get(nombre_fichero);         
+        List <String> l_lineas = Files.readAllLines(path, StandardCharsets.UTF_8);
+        return l_lineas;
     }
+    
+    
+    /**
+     * Genera un fichero con el contenido suministrado.
+     * Si el fichero existe, es reemplazado por el nuevo.
+     * 
+     * @param nombre_fichero                Fichero a generar
+     * @param l_lineas                      Líneas a guardar en el fichero
+     * 
+     * @throws IOException                  Error al escribir el fichero
+     */
+    public static void escribirFichero(String nombre_fichero, List <String> l_lineas) throws IOException {
+        Path path = Paths.get(nombre_fichero);    
+        Files.write(path, l_lineas, StandardCharsets.UTF_8);
+    }
+    
+}

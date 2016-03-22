@@ -6,7 +6,6 @@ package es.pmp.qubot;
 
 import es.pmp.qubot.conocimiento.CPregunta;
 import es.pmp.qubot.conocimiento.CPreguntaYRespuestas;
-import es.pmp.qubot.conocimiento.CRespuesta;
 import es.pmp.qubot.imagenes.Colores;
 import es.pmp.qubot.jna.Jna;
 import es.pmp.qubot.imagenes.Imagenes;
@@ -76,18 +75,18 @@ public class QubotView extends FrameView {
         jScrollPane3 = new javax.swing.JScrollPane();
         lblCapturaVysor = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        tfNombreFichero = new javax.swing.JTextField();
-        btnCargar = new javax.swing.JButton();
-        tfIdentificacion = new javax.swing.JTextField();
-        btnIdentificar = new javax.swing.JButton();
-        btnRegiones = new javax.swing.JButton();
         lblPos = new javax.swing.JLabel();
-        btnTest = new javax.swing.JButton();
-        tfTest = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         taInfoPregunta = new javax.swing.JTextArea();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        tfNombreFichero = new javax.swing.JTextField();
+        btnIdentificar = new javax.swing.JButton();
+        btnTest = new javax.swing.JButton();
+        tfIdentificacion = new javax.swing.JTextField();
+        btnCargar = new javax.swing.JButton();
+        btnRegiones = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu menuArchivo = new javax.swing.JMenu();
         miListaProcesos = new javax.swing.JMenuItem();
@@ -223,96 +222,19 @@ public class QubotView extends FrameView {
 
         jPanel2.setName("jPanel2"); // NOI18N
 
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
-
-        tfNombreFichero.setText(resourceMap.getString("tfNombreFichero.text")); // NOI18N
-        tfNombreFichero.setToolTipText(resourceMap.getString("tfNombreFichero.toolTipText")); // NOI18N
-        tfNombreFichero.setName("tfNombreFichero"); // NOI18N
-
-        btnCargar.setMnemonic('T');
-        btnCargar.setText(resourceMap.getString("btnCargar.text")); // NOI18N
-        btnCargar.setName("btnCargar"); // NOI18N
-        btnCargar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargarActionPerformed(evt);
-            }
-        });
-
-        tfIdentificacion.setBackground(resourceMap.getColor("tfIdentificacion.background")); // NOI18N
-        tfIdentificacion.setText(resourceMap.getString("tfIdentificacion.text")); // NOI18N
-        tfIdentificacion.setToolTipText(resourceMap.getString("tfIdentificacion.toolTipText")); // NOI18N
-        tfIdentificacion.setName("tfIdentificacion"); // NOI18N
-
-        btnIdentificar.setMnemonic('T');
-        btnIdentificar.setText(resourceMap.getString("btnIdentificar.text")); // NOI18N
-        btnIdentificar.setName("btnIdentificar"); // NOI18N
-        btnIdentificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIdentificarActionPerformed(evt);
-            }
-        });
-
-        btnRegiones.setMnemonic('T');
-        btnRegiones.setText(resourceMap.getString("btnRegiones.text")); // NOI18N
-        btnRegiones.setName("btnRegiones"); // NOI18N
-        btnRegiones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegionesActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfNombreFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCargar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnRegiones))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnIdentificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+            .addGap(0, 530, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tfNombreFichero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCargar)
-                    .addComponent(btnRegiones))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnIdentificar)
-                    .addComponent(tfIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            .addGap(0, 72, Short.MAX_VALUE)
         );
 
         lblPos.setText(resourceMap.getString("lblPos.text")); // NOI18N
         lblPos.setName("lblPos"); // NOI18N
-
-        btnTest.setText(resourceMap.getString("btnTest.text")); // NOI18N
-        btnTest.setName("btnTest"); // NOI18N
-        btnTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTestActionPerformed(evt);
-            }
-        });
-
-        tfTest.setBackground(resourceMap.getColor("tfTest.background")); // NOI18N
-        tfTest.setToolTipText(resourceMap.getString("tfTest.toolTipText")); // NOI18N
-        tfTest.setName("tfTest"); // NOI18N
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel3.border.title"))); // NOI18N
         jPanel3.setName("jPanel3"); // NOI18N
@@ -332,7 +254,7 @@ public class QubotView extends FrameView {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -342,31 +264,121 @@ public class QubotView extends FrameView {
                 .addContainerGap())
         );
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel4.border.title"))); // NOI18N
+        jPanel4.setName("jPanel4"); // NOI18N
+
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        tfNombreFichero.setText(resourceMap.getString("tfNombreFichero.text")); // NOI18N
+        tfNombreFichero.setToolTipText(resourceMap.getString("tfNombreFichero.toolTipText")); // NOI18N
+        tfNombreFichero.setName("tfNombreFichero"); // NOI18N
+
+        btnIdentificar.setMnemonic('T');
+        btnIdentificar.setText(resourceMap.getString("btnIdentificar.text")); // NOI18N
+        btnIdentificar.setName("btnIdentificar"); // NOI18N
+        btnIdentificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIdentificarActionPerformed(evt);
+            }
+        });
+
+        btnTest.setText(resourceMap.getString("btnTest.text")); // NOI18N
+        btnTest.setName("btnTest"); // NOI18N
+        btnTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTestActionPerformed(evt);
+            }
+        });
+
+        tfIdentificacion.setBackground(resourceMap.getColor("tfIdentificacion.background")); // NOI18N
+        tfIdentificacion.setText(resourceMap.getString("tfIdentificacion.text")); // NOI18N
+        tfIdentificacion.setToolTipText(resourceMap.getString("tfIdentificacion.toolTipText")); // NOI18N
+        tfIdentificacion.setName("tfIdentificacion"); // NOI18N
+
+        btnCargar.setMnemonic('T');
+        btnCargar.setText(resourceMap.getString("btnCargar.text")); // NOI18N
+        btnCargar.setName("btnCargar"); // NOI18N
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+
+        btnRegiones.setMnemonic('T');
+        btnRegiones.setText(resourceMap.getString("btnRegiones.text")); // NOI18N
+        btnRegiones.setName("btnRegiones"); // NOI18N
+        btnRegiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegionesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfNombreFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCargar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRegiones))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(btnIdentificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTest))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tfNombreFichero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCargar)
+                    .addComponent(btnRegiones))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnIdentificar)
+                    .addComponent(tfIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnTest)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout taPantallaPreguntaLayout = new javax.swing.GroupLayout(taPantallaPregunta);
         taPantallaPregunta.setLayout(taPantallaPreguntaLayout);
         taPantallaPreguntaLayout.setHorizontalGroup(
             taPantallaPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(taPantallaPreguntaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(taPantallaPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(taPantallaPreguntaLayout.createSequentialGroup()
+                        .addGroup(taPantallaPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(taPantallaPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPos))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(taPantallaPreguntaLayout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(79, 79, 79))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, taPantallaPreguntaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(taPantallaPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(taPantallaPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(taPantallaPreguntaLayout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(btnTest)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(tfTest, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnTestDetectarVysor1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(taPantallaPreguntaLayout.createSequentialGroup()
-                            .addGroup(taPantallaPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(taPantallaPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblPos))))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(142, 142, 142))
+                .addComponent(btnTestDetectarVysor1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(346, 346, 346))
         );
         taPantallaPreguntaLayout.setVerticalGroup(
             taPantallaPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,16 +391,15 @@ public class QubotView extends FrameView {
                         .addComponent(lblPos))
                     .addGroup(taPantallaPreguntaLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addGroup(taPantallaPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTestDetectarVysor1)
-                    .addComponent(btnTest)
-                    .addComponent(tfTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+                .addGap(11, 11, 11)
+                .addGroup(taPantallaPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addComponent(btnTestDetectarVysor1)
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         menuBar.setName("menuBar"); // NOI18N
@@ -539,6 +550,7 @@ public class QubotView extends FrameView {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -553,7 +565,6 @@ public class QubotView extends FrameView {
     private javax.swing.JTextArea taProcesoVysor;
     private javax.swing.JTextField tfIdentificacion;
     private javax.swing.JTextField tfNombreFichero;
-    private javax.swing.JTextField tfTest;
     private javax.swing.JTextField tfTituloVentanaVysor;
     // End of variables declaration//GEN-END:variables
 
@@ -811,6 +822,8 @@ public class QubotView extends FrameView {
         CPreguntaYRespuestas pr = new CPreguntaYRespuestas(imagen_en_pantalla, tipo_pantalla);
         String info_pr = pr.getInfo();
         this.taInfoPregunta.setText(info_pr);
+        
+       
         /*
         for (double n = 0; n <= 50; n += 10) {
             for (int i = 0; i < pr.arr_respuestas.length; i++) {
@@ -839,6 +852,6 @@ public class QubotView extends FrameView {
                 
         CPregunta pregunta = new CPregunta(imagen);
         String id = pregunta.getIdUnico();
-        this.tfTest.setText(id);
+        //this.tfTest.setText(id);
     }
 }

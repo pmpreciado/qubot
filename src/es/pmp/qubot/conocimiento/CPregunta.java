@@ -17,7 +17,7 @@ import java.awt.image.BufferedImage;
 public class CPregunta {
 
     
-    private static final String SEP = "|";
+    private static final String SEP_ID = "_";
     
     /** Máxima diferencia permitida para que identificadores de preguntas se consideren similares (%) */
     public static final int MAX_DISTANCIA_ID_SIMILARES = 5;
@@ -25,10 +25,23 @@ public class CPregunta {
     /** Umbral para considerar un píxel negro */
     public static final double UMBRAL_NEGRO = 50;
 
-    
-    
+    /** Imagen de la pregunta */
     BufferedImage imagen;
+
     
+    /** Atributos usados para identificar la pregunta */
+    
+        /** Componentes RGB */
+        public int suma_r;
+        public int suma_g;
+        public int suma_b;
+
+        /** Píxeles blancos y negros */
+        public int suma_blancos_sup;
+        public int suma_negros_sup;
+        public int suma_blancos_inf;
+        public int suma_negros_inf;
+
     
     
     /**
@@ -53,10 +66,32 @@ public class CPregunta {
      * @param imagen 
      */
     public CPregunta(BufferedImage imagen) {
-        id_unico = generarIdUnico(imagen);
+        this.id_unico = generarIdUnico(imagen);
+        setAtributosIdentificadores(this.id_unico);
         this.imagen = imagen;
     }
 
+
+    /**
+     * Genera y establece los identificadores para la pregunta a partir de su imagen.
+     * 
+     * @param id_unico
+     */
+    private void setAtributosIdentificadores(String id_unico) {
+        String [] arr_sp = id_unico.split(SEP_ID);
+        
+        int c = 0;
+        suma_r = Integer.parseInt(arr_sp[c++]);
+        suma_g = Integer.parseInt(arr_sp[c++]);
+        suma_b = Integer.parseInt(arr_sp[c++]);
+
+        suma_blancos_sup = Integer.parseInt(arr_sp[c++]);
+        suma_negros_sup = Integer.parseInt(arr_sp[c++]);
+        suma_blancos_inf = Integer.parseInt(arr_sp[c++]);
+        suma_negros_inf = Integer.parseInt(arr_sp[c++]);
+    }
+
+    
     
     /**
      * Genera un identificador único para la pregunta.
@@ -67,10 +102,8 @@ public class CPregunta {
      */
     public static String generarIdUnico(BufferedImage imagen) {        
         int [] rgb = Imagenes.getSumaComponentes(imagen);
-        //int [] bn = Imagenes.getSumaBn(image, UMBRAL_NEGRO);
         int [] bn = Imagenes.getSumaBnDobleVertical(imagen, UMBRAL_NEGRO);
-        
-        String id = rgb[0] + SEP + rgb[1] + SEP + rgb[2] + SEP + bn[0] + SEP + bn[1] + SEP + bn[2] + SEP + bn[3];
+        String id = rgb[0] + SEP_ID + rgb[1] + SEP_ID + rgb[2] + SEP_ID + bn[0] + SEP_ID + bn[1] + SEP_ID + bn[2] + SEP_ID + bn[3];
         return id;
     }
     
@@ -103,7 +136,7 @@ public class CPregunta {
      * @return 
      */
     public static int [] getRgb(String id_unico) {
-        String [] sp = id_unico.split(SEP);
+        String [] sp = id_unico.split(SEP_ID);
         int r = Integer.parseInt(sp[0]);
         int g = Integer.parseInt(sp[1]);
         int b = Integer.parseInt(sp[2]);
@@ -121,7 +154,7 @@ public class CPregunta {
      * @return 
      */
     public static int [] getBn(String id_unico) {
-        String [] sp = id_unico.split(SEP);
+        String [] sp = id_unico.split(SEP_ID);
         int b0 = Integer.parseInt(sp[3]);
         int n0 = Integer.parseInt(sp[4]);
         int b1 = Integer.parseInt(sp[5]);
